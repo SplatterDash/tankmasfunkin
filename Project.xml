@@ -4,7 +4,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Advent2022-templatemg" file="Advent2022-templatemg" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<app title="Advent2022-tankmasfunkin" file="tankmasfunkin" main="Main" version="0.0.1" company="HaxeFlixel" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -31,7 +31,7 @@
 
 	<set name="BUILD_DIR" value="export" />
 	<source path="source" />
-	<classpath name="standAloneSource" />
+	<classpath name="standAloneSource" path="standAloneSource"/>
 	<assets path="assets" />
 	
 	<!-- Directive enabled when playing the advent game without launching via advent -->
@@ -45,10 +45,12 @@
 	<haxelib name="flixel-addons" />
 
 	<!--In case you want to use the ui package-->
-	<!--<haxelib name="flixel-ui" />-->
+	<haxelib name="flixel-ui" />
 
 	<!--In case you want to use nape with flixel-->
 	<!--<haxelib name="nape-haxe4" />-->
+
+	<haxelib name="newgrounds" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 

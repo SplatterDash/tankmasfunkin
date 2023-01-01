@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="candle.png">
+<SubTexture name="candle flicker0000" x="0" y="0" width="17" height="52" frameX="0" frameY="0" frameWidth="13" frameHeight="48" />
+<SubTexture name="candle flicker0001" x="17" y="0" width="17" height="52" frameX="0" frameY="0" frameWidth="13" frameHeight="48" />
+<SubTexture name="candle flicker0002" x="34" y="0" width="17" height="52" frameX="0" frameY="0" frameWidth="13" frameHeight="48" />
+<SubTexture name="candle flicker0003" x="51" y="0" width="17" height="51" frameX="0" frameY="-1" frameWidth="13" frameHeight="48" />
+<SubTexture name="candle flicker0004" x="0" y="52" width="17" height="51" frameX="0" frameY="-1" frameWidth="13" frameHeight="48" />
+<SubTexture name="candle flicker0005" x="17" y="52" width="17" height="52" frameX="0" frameY="0" frameWidth="13" frameHeight="48" />
+<SubTexture name="candle flicker0006" x="34" y="52" width="17" height="52" frameX="0" frameY="0" frameWidth="13" frameHeight="48" />
+<SubTexture name="candle flicker0007" x="51" y="52" width="17" height="52" frameX="0" frameY="0" frameWidth="13" frameHeight="48" />
+</TextureAtlas>
