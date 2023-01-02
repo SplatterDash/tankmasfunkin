@@ -50,6 +50,7 @@ class GameGlobal
                 case "selection": "Z, J or Spacebar";
                 case "back": "X or K";
                 case "gameplay": "Arrow Keys and/or WASD";
+                case "pause": "P or Enter";
                 default: "Slam Your Face Button(c) and call for help";
             } 
         } else {
@@ -58,6 +59,7 @@ class GameGlobal
             case "selection": "A or X";
             case "back": "B or Y";
             case "gameplay": "D-Pad and/or Left Stick";
+            case "pause": "Start";
             default: "Slam Your Face Button(c) and call for help";
             }
         }

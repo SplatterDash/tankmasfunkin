@@ -54,25 +54,25 @@ class CreditsSubState extends FlxSubState {
         add(selectionText);
         
 
-        creditsIcon = new FlxSprite(60, 55, Paths.image('ui/icon_spd'));
+        creditsIcon = new FlxSprite(60, 55, Paths.image('ui/menu/icon_spd'));
         creditsIcon.setGraphicSize(64, 64);
         creditsIcon.updateHitbox();
         mainScreen.push(creditsIcon);
         add(creditsIcon);
 
-        creditsIcon = new FlxSprite(154, 55, Paths.image('ui/icon_jrx'));
+        creditsIcon = new FlxSprite(154, 55, Paths.image('ui/menu/icon_jrx'));
         creditsIcon.setGraphicSize(64, 64);
         creditsIcon.updateHitbox();
         mainScreen.push(creditsIcon);
         add(creditsIcon);
 
-        creditsIcon = new FlxSprite(248, 55, Paths.image('ui/icon_tds'));
+        creditsIcon = new FlxSprite(248, 55, Paths.image('ui/menu/icon_tds'));
         creditsIcon.setGraphicSize(64, 64);
         creditsIcon.updateHitbox();
         mainScreen.push(creditsIcon);
         add(creditsIcon);
 
-        creditsIcon = new FlxSprite(342, 55, Paths.image('ui/icon_jdg'));
+        creditsIcon = new FlxSprite(342, 55, Paths.image('ui/menu/icon_jdg'));
         creditsIcon.setGraphicSize(64, 64);
         creditsIcon.updateHitbox();
         mainScreen.push(creditsIcon);
@@ -171,15 +171,28 @@ class CreditsSubState extends FlxSubState {
         thanksScreen.push(selectionText);
         add(selectionText);
 
-        selectionText = new FlxText(20, 55, 440, '>Previous Calendar Organizers: TurkeyOnAStick (NG 2012), PuffballsUnited (Flash 2012), ninjamuffin (NG 2018), BrandyBuizel & GeoKureli (NG 2019, 2020 & 2022), TheDyingSun & KnoseDoge (NG 2021)\n> Advent Calendar Teams Past And Present (check out the Tankmas Adventure collection to see them all!)\n> The NG Community & Tom Fulp (our lord and savior)\n> The Funkin Crew - ${Controls.mode == Keys ? 'CLICK' : 'TAP'} HERE TO SUPPORT DA FUNK');
+        selectionText = new FlxText(20, 55, 440, '>Previous Calendar Organizers: TurkeyOnAStick (NG 2012), PuffballsUnited (Flash 2012), ninjamuffin (NG 2018), BrandyBuizel & GeoKureli (NG 2019, 2020 & 2022), TheDyingSun & KnoseDoge (NG 2021)\n> Advent Calendar Teams Past And Present (check out the Tankmas Adventure collection to see them all!)\n> The NG Community & Tom Fulp (our lord and savior)\n> The Funkin Crew');
         selectionText.setFormat(null, 12, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
         thanksScreen.push(selectionText);
         add(selectionText);
 
-        button1 = new FlxSpriteButton(45, 155, null, () -> FlxG.openURL('https://www.newgrounds.com/audio/listen/293004'));
+        selectionText = new FlxText(0, 180, 0, '${Controls.mode == Keys ? 'CLICK' : 'TAP'} HERE TO SUPPORT DA FUNK');
+        selectionText.setFormat(null, 21, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        thanksScreen.push(selectionText);
+        add(selectionText);
+        selectionText.screenCenter(X);
+
+        button1 = new FlxSpriteButton(selectionText.x, 180, null, () -> FlxG.openURL('https://www.newgrounds.com/portal/view/770371'));
         button1.makeGraphic(Std.int(selectionText.width), Std.int(selectionText.height), FlxColor.PINK);
+        button1.alpha = 0.5;
         thanksScreen.push(button1);
         add(button1);
+
+        selectionText = new FlxText(0, 200, 0, "(right where it originated!)");
+        selectionText.setFormat(null, 12, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        thanksScreen.push(selectionText);
+        add(selectionText);
+        selectionText.screenCenter(X);
 
         selectionText = new FlxText(35, 235, 440, 'Return to Main Menu: ${back} --- Next Page: ${conf}');
         selectionText.setFormat(null, 10, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);

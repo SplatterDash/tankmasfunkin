@@ -1,20 +1,19 @@
 package tankmasfunkin.states;
 
-import lime.app.Promise;
-import lime.app.Future;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import openfl.utils.Assets;
-import lime.utils.Assets as LimeAssets;
-import lime.utils.AssetLibrary;
-import lime.utils.AssetManifest;
+import tankmasfunkin.global.GameGlobal;
+
 
 class LoadingState extends MusicBeatState
 {
-    inline static var MIN_TIME = 1.0;
+    inline static var MIN_TIME = 5.0;
 	
 	var target:FlxState;
 	var stopMusic = false;
@@ -25,8 +24,29 @@ class LoadingState extends MusicBeatState
             this.target = target;
             this.stopMusic = stopMusic;
         }
+
+        override function create()
+            {
+                var pause = GameGlobal.getSelectionInputs("pause");
+                var nav = GameGlobal.getSelectionInputs("navigation");
+
+                var loadingText:FlxText = new FlxText (0, 0, 0, "Loading...");
+                loadingText.setFormat(null, 50, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+                loadingText.screenCenter(XY);
+                add(loadingText);
+
+                var directionText:FlxText = new FlxText(0, Global.height - 40, 0, 'Use ${nav} to control your character. Press ${pause} to pause.');
+                directionText.setFormat(null, 15, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+                directionText.screenCenter(X);
+                add(directionText);
+
+                var newY = loadingText.y + 30;
+
+                FlxTween.tween(loadingText, {y: newY}, 2, {ease: FlxEase.quartInOut, type: FlxTweenType.PINGPONG});
+            }
         inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
             {
+                Global.switchState(new LoadingState(target, stopMusic));
                 Global.switchState(getNextState(target, stopMusic));
             }
             

@@ -76,6 +76,7 @@ class PlayState extends MusicBeatState
 	public static var bg2021:FlxSprite;
 	public static var white:FlxSprite;
 	public static var tom:FlxSprite;
+	public static var garland:FlxSprite;
 
 	public var alphaAdd = 0.005;
 	public var stopFollow:Bool = false;
@@ -117,6 +118,8 @@ class PlayState extends MusicBeatState
 	var Boppers1:FlxSprite;
 	var Boppers2:FlxSprite;
 	var Boppers3:FlxSprite;
+	public static var bopSpeed:Float = 1;
+	public static var garlandFrame:Int = 0;
 
 	public static var songScore:Int = 0;
 	var scoreTxt:FlxText;
@@ -170,7 +173,7 @@ class PlayState extends MusicBeatState
 		tom.alpha = 0;
 		add(tom);
 
-		bg = new FlxSprite(-159, -105).loadGraphic(Paths.image('stage/wall'));
+		bg = new FlxSprite(-179, -105).loadGraphic(Paths.image('stage/wall'));
 		bg.antialiasing = true;
 		bg.scrollFactor.set(1, 1);
 		bg.active = false;
@@ -645,6 +648,51 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut});
 	}
 
+	override function openSubState(SubState:FlxSubState)
+		{
+			if (paused)
+			{
+				if (FlxG.sound.music != null)
+				{
+					FlxG.sound.music.pause();
+					vocals.pause();
+				}
+	
+				if (!startTimer.finished)
+					startTimer.active = false;
+			}
+	
+			super.openSubState(SubState);
+		}
+	
+		override function closeSubState()
+		{
+			if (paused)
+			{
+				if (FlxG.sound.music != null && !startingSong)
+				{
+					resyncVocals();
+				}
+	
+				if (!startTimer.finished)
+					startTimer.active = true;
+				paused = false;
+	
+				#if desktop
+				if (startTimer.finished)
+				{
+					DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC, true, songLength - Conductor.songPosition);
+				}
+				else
+				{
+					DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
+				}
+				#end
+			}
+	
+			super.closeSubState();
+		}
+
 	function resyncVocals():Void
 	{
 		vocals.pause();
@@ -670,6 +718,15 @@ class PlayState extends MusicBeatState
 
 		scoreTxt.text = "Score:" + songScore;
 		scoreTxt.x = (Global.width / 2) - (scoreTxt.width / 2);
+
+		if (Controls.justPressed.PAUSE && startedCountdown && canPause)
+			{
+				persistentUpdate = false;
+				persistentDraw = true;
+				paused = true;
+
+				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+			}
 
 		if (startingSong)
 		{
@@ -908,7 +965,7 @@ class PlayState extends MusicBeatState
 
 		var placement:String = Std.string(combo);
 
-		var coolText:FlxText = new FlxText(100, 0, 0, placement, 32);
+		var coolText:FlxText = new FlxText(85, 0, 0, placement, 32);
 
 		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
@@ -971,7 +1028,7 @@ class PlayState extends MusicBeatState
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/num' + Std.int(i)));
 			numScore.screenCenter();
-			numScore.x = coolText.x + (43 * daLoop) - 43;
+			numScore.x = coolText.x + (30 * daLoop) + 10;
 			numScore.y += 10;
 			numScore.setGraphicSize(Std.int(numScore.width * daPixelZoom));
 			numScore.updateHitbox();
@@ -1032,12 +1089,7 @@ class PlayState extends MusicBeatState
 		var downR = Controls.justReleased.DOWN;
 		var leftR = Controls.justReleased.LEFT;
 
-		var bugTestControl = Controls.justReleased.PAUSE;
-
 		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
-
-		// FlxG.watch.addQuick('asdfa', upP);
-		if(bugTestControl) endSong();
 
 		if ((upP || rightP || downP || leftP) && !curChar.stunned && generatedMusic)
 		{
@@ -1319,6 +1371,20 @@ class PlayState extends MusicBeatState
 		{
 			Global.camera.zoom += 0.015;
 		}
+
+		if (curBeat % bopSpeed == 0)
+			{
+				Boppers1.animation.play('bop', true);
+				Boppers2.animation.play('bop', true);
+				Boppers3.animation.play('bop', true);
+				if(garlandFrame == 1) {
+					garlandFrame = 0;
+					garland.animation.play('light', true);
+				} else {
+					garlandFrame = 1;
+					garland.animation.play('leet', true);
+				}
+			}
 
 		if (!curChar.animation.curAnim.name.startsWith("sing"))
 		{

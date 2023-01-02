@@ -46,26 +46,29 @@ class CharSelectSubState extends FlxSubState {
         FlxG.mouse.visible = false;
         panelRec = new FlxSprite(10, 10);
         panelRec.makeGraphic(460, 250, green);
+        panelRec.alpha = 0.3;
         add(panelRec);
 
         panelRec = new FlxSprite(15, 15);
         panelRec.makeGraphic(450, 240, red);
+        panelRec.alpha = 0.3;
         add(panelRec);
 
         panelRec = new FlxSprite(20, 20);
         panelRec.makeGraphic(440, 230, green);
+        panelRec.alpha = 0.3;
         add(panelRec);
 
         selectionText = new FlxText(50, 50, 400, "Choose Your Character");
         selectionText.setFormat(null, 24, FlxColor.WHITE, CENTER);
         add(selectionText);
 
-        ddImage = new FlxSprite(60, 100, Paths.image('ui/icon_dd'));
+        ddImage = new FlxSprite(60, 100, Paths.image('ui/menu/icon_dd'));
         ddImage.setGraphicSize(64, 64);
         ddImage.updateHitbox();
         add(ddImage);
 
-        bfImage = new FlxSprite(338, 100, Paths.image('ui/icon_bf'));
+        bfImage = new FlxSprite(338, 100, Paths.image('ui/menu/icon_bf'));
         bfImage.setGraphicSize(64, 64);
         bfImage.updateHitbox();
         add(bfImage);
@@ -95,6 +98,8 @@ class CharSelectSubState extends FlxSubState {
         if(Controls.justPressed.LEFT || Controls.justPressed.RIGHT) considerSelection(true);
         if(Controls.justPressed.B) {
             MenuState.moveOn = false;
+            MenuState.doorOpen.alpha = 0;
+            MenuState.doorClosed.alpha = 1;
             tankmasfunkin.states.GameOverState.moveOn = false;
             FlxG.mouse.visible = true;
             close();

@@ -18,6 +18,8 @@ class MenuState extends flixel.FlxState
 {
 	public static var moveOn:Bool = false;
 	public static var credits:Bool = false;
+	public static var doorClosed:FlxSprite;
+	public static var doorOpen:FlxSprite;
 
 	override public function create()
 	{
@@ -28,6 +30,18 @@ class MenuState extends flixel.FlxState
 		GameGlobal.initialized = false;
 		GameGlobal.init();
 		FlxG.sound.playMusic(Paths.music('mainMenu'));
+
+		doorClosed = new FlxSprite(0, 0, Paths.image('ui/menu/doorclosed'));
+		doorClosed.setSize(Std.int(doorClosed.width * 2), Std.int(doorClosed.height * 2));
+		doorClosed.updateHitbox();
+		add(doorClosed);
+
+		doorOpen = new FlxSprite(0, 0, Paths.image('ui/menu/dooropen'));
+		doorOpen.alpha = 0;
+		doorOpen.setSize(Std.int(doorOpen.width * 2), Std.int(doorOpen.height * 2));
+		doorOpen.updateHitbox();
+		add(doorOpen);
+
 		var menuButton:FlxButton = new FlxButton(200, 0, "Play", gameStartup);
 		var creditsButton:FlxButton = new FlxButton(200, 200, "Credits", creditsMenu);
 		menuButton.screenCenter(Y);
@@ -46,6 +60,8 @@ class MenuState extends flixel.FlxState
 
 	function gameStartup():Void
 	{
+		doorOpen.alpha = 1;
+		doorClosed.alpha = 0;
 		moveOn = true;
 		super.openSubState(new CharSelectSubState());
 	}
