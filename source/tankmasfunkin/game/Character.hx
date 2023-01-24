@@ -40,8 +40,18 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 12, false);
 				animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 12, false);
 				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 12, false);
+				animation.addByPrefix('singUPmiss', 'Dad Sing Note MISS UP', 12, false);
+				animation.addByPrefix('singRIGHTmiss', 'Dad Sing Note MISS RIGHT', 12, false);
+				animation.addByPrefix('singDOWNmiss', 'Dad Sing Note MISS DOWN', 12, false);
+				animation.addByPrefix('singLEFTmiss', 'Dad Sing Note MISS LEFT', 12, false);
 
 				playAnim('idle');
+
+			case 'gf':
+				tex = Paths.getSparrowAtlas('characters/GF');
+				frames = tex;
+				animation.addByIndices('danceLeft', 'GF Get Tankmas Jiggy With It', [0, 1, 2, 3, 3, 2, 1, 0], '', 12, false);
+				animation.addByIndices('danceRight', 'GF Get Tankmas Jiggy With It', [0, 4, 5, 6, 6, 5, 4, 0], '', 12, false);
 			case 'bf':
 				tex = Paths.getSparrowAtlas('characters/BOYFRIEND');
 				frames = tex;
@@ -63,11 +73,8 @@ class Character extends FlxSprite
 
 		dance();
 
-		//if (isPlayer)
-		//{
-
 			// Doesn't flip for BF, since his are already in the right place???
-			 if (!curCharacter.startsWith('bf'))
+			 if (!curCharacter.startsWith('bf') && !curCharacter.startsWith('gf'))
 			 {
 			 	// var animArray
 			 	var oldRight = animation.getByName('singRIGHT').frames;
@@ -82,7 +89,6 @@ class Character extends FlxSprite
 			 		animation.getByName('singLEFTmiss').frames = oldMiss;
 			 	}
 			 }
-		//}
 	}
 
 	override function update(elapsed:Float)
@@ -112,7 +118,15 @@ class Character extends FlxSprite
 
 	public function dance()
 	{
-		if (!debugMode)	playAnim('idle');
+		if (!debugMode)	{
+			switch (curCharacter) {
+				case 'gf':
+					danced = !danced;
+					if(danced) playAnim('danceRight') else playAnim ('danceLeft');
+				default:
+					playAnim('idle');
+			}
+		}
 	}
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void

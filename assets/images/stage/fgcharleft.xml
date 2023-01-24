@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="fgcharleft.png">
+<SubTexture name="Left Characters Bop0000" x="0" y="0" width="164" height="119" frameX="0" frameY="0" frameWidth="158" frameHeight="113" />
+<SubTexture name="Left Characters Bop0001" x="0" y="119" width="164" height="120" frameX="0" frameY="1" frameWidth="158" frameHeight="114" />
+<SubTexture name="Left Characters Bop0002" x="0" y="239" width="158" height="125" frameX="-1" frameY="6" frameWidth="152" frameHeight="119" />
+<SubTexture name="Left Characters Bop0003" x="0" y="364" width="160" height="124" frameX="2" frameY="5" frameWidth="154" frameHeight="118" />
+<SubTexture name="Left Characters Bop0004" x="0" y="488" width="160" height="125" frameX="1" frameY="6" frameWidth="154" frameHeight="119" />
+<SubTexture name="Left Characters Bop0005" x="0" y="488" width="160" height="125" frameX="1" frameY="6" frameWidth="154" frameHeight="119" />
+</TextureAtlas>

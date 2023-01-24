@@ -6,6 +6,20 @@ import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 
+/**
+ * Man, getting this to be modular was a pain LOL
+ * 
+ * This system is part of the Tankmas minigame
+ * package, and all games comply with the controls
+ * set in here. When the team and I made the
+ * decision to go independent, we had the idea to
+ * implement a control-changing feature, so I had
+ * to tweak this to make it work.
+ * 
+ * Geo I'm so sorry if I broke this and didn't know
+ * LOL
+ */
+
 class Controls extends flixel.FlxBasic
 {
     static public var pressed     (default, null):ControlsList;
@@ -46,21 +60,22 @@ class Controls extends flixel.FlxBasic
         instance.active = !FlxG.onMobile;
         FlxG.plugins.add(instance);
     }
+
 }
 
 class ControlsList
 {
-    static var keys:Map<Action, Array<FlxKey>> =
+    public static var keys:Map<Action, Array<FlxKey>> =
         [ UP       => [W, UP   ]
         , DOWN     => [S, DOWN ]
         , LEFT     => [A, LEFT ]
         , RIGHT    => [D, RIGHT]
-        , A        => [Z, J, SPACE]
-        , B        => [X, K, ESCAPE]
+        , A        => [Z, SPACE]
+        , B        => [X, ESCAPE]
         , PAUSE    => [P, ENTER]
         ];
     
-    static var buttons:Map<Action, Array<FlxGamepadInputID>> =
+    public static var buttons:Map<Action, Array<FlxGamepadInputID>> =
         [ UP       => [DPAD_UP   , LEFT_STICK_DIGITAL_UP   ]
         , DOWN     => [DPAD_DOWN , LEFT_STICK_DIGITAL_DOWN ]
         , LEFT     => [DPAD_LEFT , LEFT_STICK_DIGITAL_LEFT ]
@@ -104,6 +119,32 @@ class ControlsList
         }
         return false;
     }
+
+        // public function bindKeys(action:Action, keyToAdd:FlxKey)
+        //     {
+        //         //forEachBound(control, function(action, state) addKeys(action, keys, state));
+                
+
+        //     }
+
+        //     public function unbindKeys(action:Action, keyToRem:FlxKey)
+        //     {
+        //         //forEachBound(control, function(action, _) removeKeys(action, keys));
+                
+        //     }
+
+        //     public function bindButtons(action:Action, buttonToAdd:FlxGamepadInputID)
+        //         {
+        //             //forEachBound(control, function(action, state) addKeys(action, keys, state));
+                    
+    
+        //         }
+    
+        //         public function unbindButtons(action:Action, buttonToRem:FlxGamepadInputID)
+        //         {
+        //             //forEachBound(control, function(action, _) removeKeys(action, keys));
+                    
+        //         }
     
     public var UP      (get, never):Bool; inline function get_UP      () return check(Action.UP      );
     public var DOWN    (get, never):Bool; inline function get_DOWN    () return check(Action.DOWN    );

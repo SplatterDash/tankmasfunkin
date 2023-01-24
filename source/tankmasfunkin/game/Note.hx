@@ -9,6 +9,21 @@ import tankmasfunkin.global.Paths;
 
 using StringTools;
 
+/**THANK YOU FNF COMMUNITY FOR REMINDING ME
+ * THAT MUSTHITSECTION EXISTS
+ * 
+ * That was a lifesaver for the character
+ * selection feature, which this utilizes.
+ * If charInt = 0 (in other words, if the
+ * player is playing as DD), then it swaps
+ * the sections around and here it swaps
+ * where the notes go in terms of strumlines.
+ * 
+ * Looking back maybe I could've experiemented
+ * with PlayerSettings and doing that stuff,
+ * but I didn't know that at the time LOL
+ */
+
 class Note extends FlxSprite
 {
 	public var strumTime:Float = 0;
@@ -45,7 +60,7 @@ class Note extends FlxSprite
 
 		x += 33;
 
-		y -= 2500;
+		y -= 2000;
 		this.strumTime = strumTime;
 		this.noteData = noteData;
 		this.mustHitNote = mustHitNote;
@@ -59,7 +74,7 @@ class Note extends FlxSprite
 
 				if (isSustainNote)
 				{
-					loadGraphic(Paths.image('ui/tankmas_noteassetsends'), true, 7, 12);
+					loadGraphic(Paths.image('ui/tankmas_noteassetsends'), true, 7, 18);
 
 					animation.add('purpleholdend', [4]);
 					animation.add('greenholdend', [6]);
@@ -99,7 +114,7 @@ class Note extends FlxSprite
 			noteScore * 0.2;
 			alpha = 0.6;
 
-			x += width - 3;
+			x += width - 5;
 
 			switch (noteData)
 			{
@@ -115,8 +130,6 @@ class Note extends FlxSprite
 
 			updateHitbox();
 
-			//x = width;
-
 			if (prevNote.isSustainNote)
 			{
 				switch (prevNote.noteData)
@@ -129,10 +142,8 @@ class Note extends FlxSprite
 						prevNote.animation.play('greenhold');
 					case 3:
 						prevNote.animation.play('redhold');
-				}
-
-                var songSpeed = PlayState.SONG.speed;
-				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.46 * songSpeed;
+				} 
+				prevNote.scale.y *= Conductor.stepCrochet / 100 * 0.98 * PlayState.SONG.speed;
 				prevNote.updateHitbox();
 
 			}

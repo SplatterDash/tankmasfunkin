@@ -9,11 +9,10 @@ class Highscore
 
     public static function saveScore(char:Int = 0, score:Int = 0):Void
         {
+            if(score <= 0) return;
             var daChar:String = formatSong(char);
 
-            // #if !switch
-            // tankmasfunkin.data.NGio.postScore(score, daChar);
-            // #end
+            tankmasfunkin.global.NGio.postScore(score, daChar);
     
             if (songScores.exists(daChar))
             {

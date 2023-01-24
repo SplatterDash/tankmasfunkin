@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="tutorialAnim.png">
+<SubTexture name="Lemme Show You How To Rap It0000" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0001" x="151" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0002" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0003" x="302" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0004" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0005" x="453" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0006" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0007" x="0" y="157" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0008" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0009" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0010" x="151" y="157" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0011" x="302" y="157" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0012" x="453" y="157" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0013" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0014" x="0" y="314" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0015" x="151" y="314" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0016" x="302" y="314" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0017" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0018" x="453" y="314" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0019" x="0" y="471" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0020" x="151" y="471" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0021" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0022" x="302" y="471" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0023" x="453" y="471" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0024" x="0" y="628" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0025" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+<SubTexture name="Lemme Show You How To Rap It0026" x="0" y="0" width="151" height="157" frameX="-27" frameY="-20" frameWidth="207" frameHeight="190" />
+</TextureAtlas>

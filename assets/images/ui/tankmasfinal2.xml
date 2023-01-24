@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="tankmasfinal2.png">
+<SubTexture name="He Got A Glock In His Rari0000" x="0" y="0" width="190" height="167" frameX="-32" frameY="-16" frameWidth="480" frameHeight="270" />
+<SubTexture name="He Got A Glock In His Rari0001" x="0" y="167" width="191" height="167" frameX="-32" frameY="-16" frameWidth="480" frameHeight="270" />
+<SubTexture name="He Got A Glock In His Rari0002" x="0" y="334" width="190" height="167" frameX="-32" frameY="-16" frameWidth="480" frameHeight="270" />
+<SubTexture name="He Got A Glock In His Rari0003" x="0" y="501" width="191" height="167" frameX="-32" frameY="-16" frameWidth="480" frameHeight="270" />
+</TextureAtlas>

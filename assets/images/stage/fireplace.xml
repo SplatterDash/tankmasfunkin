@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="fireplace.png">
+<SubTexture name="Fireplace Aint Lit Bro0000" x="0" y="0" width="78" height="49" frameX="0" frameY="-46" frameWidth="72" frameHeight="43" />
+<SubTexture name="Fireplace Lit0000" x="78" y="0" width="78" height="89" frameX="0" frameY="-6" frameWidth="72" frameHeight="83" />
+<SubTexture name="Fireplace Lit0001" x="156" y="0" width="78" height="92" frameX="0" frameY="-3" frameWidth="72" frameHeight="86" />
+<SubTexture name="Fireplace Lit0002" x="0" y="92" width="78" height="90" frameX="0" frameY="-5" frameWidth="72" frameHeight="84" />
+<SubTexture name="Fireplace Lit0003" x="78" y="92" width="78" height="91" frameX="0" frameY="-4" frameWidth="72" frameHeight="85" />
+<SubTexture name="Fireplace Lit0004" x="156" y="92" width="78" height="95" frameX="0" frameY="0" frameWidth="72" frameHeight="89" />
+<SubTexture name="Fireplace Lit0005" x="0" y="187" width="78" height="93" frameX="0" frameY="-2" frameWidth="72" frameHeight="87" />
+<SubTexture name="Fireplace Lit0006" x="78" y="187" width="78" height="92" frameX="0" frameY="-3" frameWidth="72" frameHeight="86" />
+<SubTexture name="Fireplace Lit0007" x="156" y="187" width="78" height="93" frameX="0" frameY="-2" frameWidth="72" frameHeight="87" />
+</TextureAtlas>

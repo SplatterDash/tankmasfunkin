@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="GF.png">
+<SubTexture name="GF Get Tankmas Jiggy With It0000" x="0" y="0" width="73" height="144" frameX="0" frameY="0" frameWidth="69" frameHeight="140" />
+<SubTexture name="GF Get Tankmas Jiggy With It0001" x="73" y="0" width="76" height="143" frameX="1" frameY="-1" frameWidth="72" frameHeight="139" />
+<SubTexture name="GF Get Tankmas Jiggy With It0002" x="149" y="0" width="80" height="138" frameX="3" frameY="-5" frameWidth="76" frameHeight="134" />
+<SubTexture name="GF Get Tankmas Jiggy With It0003" x="0" y="144" width="79" height="137" frameX="3" frameY="-6" frameWidth="75" frameHeight="133" />
+<SubTexture name="GF Get Tankmas Jiggy With It0004" x="79" y="144" width="89" height="140" frameX="8" frameY="-4" frameWidth="85" frameHeight="136" />
+<SubTexture name="GF Get Tankmas Jiggy With It0005" x="168" y="144" width="90" height="140" frameX="9" frameY="-3" frameWidth="86" frameHeight="136" />
+<SubTexture name="GF Get Tankmas Jiggy With It0006" x="0" y="284" width="89" height="144" frameX="8" frameY="0" frameWidth="85" frameHeight="140" />
+</TextureAtlas>

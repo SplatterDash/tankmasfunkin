@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="tankmasfinal1.png">
+<SubTexture name="So This Is The Credits0000" x="0" y="0" width="336" height="223" frameX="-128" frameY="-35" frameWidth="480" frameHeight="270" />
+<SubTexture name="So This Is The Credits0001" x="0" y="223" width="335" height="226" frameX="-129" frameY="-35" frameWidth="480" frameHeight="270" />
+<SubTexture name="So This Is The Credits0002" x="0" y="449" width="336" height="226" frameX="-128" frameY="-35" frameWidth="480" frameHeight="270" />
+<SubTexture name="So This Is The Credits0003" x="0" y="675" width="337" height="224" frameX="-127" frameY="-35" frameWidth="480" frameHeight="270" />
+</TextureAtlas>

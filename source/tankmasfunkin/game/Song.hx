@@ -49,6 +49,8 @@ class Song
 			// LOL GOING THROUGH THE BULLSHIT TO CLEAN IDK WHATS STRANGE
 		}
 
+		//idk if I wanna rip this out or keep it, so here ya go hehe
+
 		// FIX THE CASTING ON WINDOWS/NATIVE
 		// Windows???
 		// trace(songData);

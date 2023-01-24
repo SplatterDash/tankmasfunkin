@@ -26,6 +26,6 @@ class BootState extends flixel.FlxState
 	{
 		super.update(elapsed);
 		
-		Global.switchState(new tankmasfunkin.states.MenuState());
+		Global.switchState(new tankmasfunkin.states.BootState());
 	}
 }

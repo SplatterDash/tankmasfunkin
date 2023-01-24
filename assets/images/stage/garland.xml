@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="garland.png">
+<SubTexture name="garland light10000" x="0" y="0" width="399" height="248" frameX="-38" frameY="-9" frameWidth="480" frameHeight="300" />
+<SubTexture name="garland light20000" x="0" y="248" width="399" height="248" frameX="-38" frameY="-9" frameWidth="480" frameHeight="300" />
+</TextureAtlas>

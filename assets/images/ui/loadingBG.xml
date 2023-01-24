@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="loadingBG.png">
+<SubTexture name="Loading Candy Cane Swirl0000" x="0" y="0" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+<SubTexture name="Loading Candy Cane Swirl0001" x="484" y="0" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+<SubTexture name="Loading Candy Cane Swirl0002" x="0" y="274" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+<SubTexture name="Loading Candy Cane Swirl0003" x="484" y="274" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+<SubTexture name="Loading Candy Cane Swirl0004" x="0" y="548" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+<SubTexture name="Loading Candy Cane Swirl0005" x="484" y="548" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+<SubTexture name="Loading Candy Cane Swirl0006" x="0" y="822" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+<SubTexture name="Loading Candy Cane Swirl0007" x="484" y="822" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+<SubTexture name="Loading Candy Cane Swirl0008" x="0" y="1096" width="484" height="274" frameX="0" frameY="0" frameWidth="480" frameHeight="270" />
+</TextureAtlas>

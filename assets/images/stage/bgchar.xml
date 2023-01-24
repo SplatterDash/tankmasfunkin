@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="bgchar.png">
+<SubTexture name="Bg Characters Bop0000" x="0" y="0" width="305" height="159" frameX="0" frameY="0" frameWidth="299" frameHeight="153" />
+<SubTexture name="Bg Characters Bop0001" x="0" y="0" width="305" height="159" frameX="0" frameY="0" frameWidth="299" frameHeight="153" />
+<SubTexture name="Bg Characters Bop0002" x="0" y="159" width="299" height="164" frameX="-2" frameY="5" frameWidth="293" frameHeight="158" />
+<SubTexture name="Bg Characters Bop0003" x="0" y="159" width="299" height="164" frameX="-2" frameY="5" frameWidth="293" frameHeight="158" />
+<SubTexture name="Bg Characters Bop0004" x="0" y="323" width="302" height="161" frameX="0" frameY="2" frameWidth="296" frameHeight="155" />
+<SubTexture name="Bg Characters Bop0005" x="0" y="323" width="302" height="161" frameX="0" frameY="2" frameWidth="296" frameHeight="155" />
+</TextureAtlas>
