@@ -26,6 +26,7 @@ class PauseSubState extends MusicBeatSubstate
             var back = GameGlobal.getSelectionInputs(null, Action.B);
 
             theFunny = ["I wonder if they're still battling wilma", 'Go get a glass of water ya stinky', 'Chart work ahead? Uh yeah, I sure hope it does', "crack moneeeey", "If I see a port of this go up on GameBanana I'mma hunt you down"];
+            //if you see this, send me funnies
 
             var bg:FlxSprite = new FlxSprite(-500, -250).makeGraphic(1500, 1000, FlxColor.BLACK);
 		bg.alpha = 0;
