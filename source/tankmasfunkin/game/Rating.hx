@@ -14,7 +14,7 @@ package tankmasfunkin.game;
  */
 class Rating {
     public static var ratingMap:Map<String, String> = [
-         '410000' => "S"
+         '400000' => "S"
         ,'320000' => "A"
         ,'240000' => "B"
         ,'160000' => "C"
@@ -30,5 +30,36 @@ class Rating {
         }
         trace(output);
         return output[output.length >= 2 ? output.length - 2 : 0];
+    }
+
+    private static var perRating:Map<String, Int> = [
+          'sweet' => 0
+        , 'nice' => 0
+        , 'naughty' => 0
+        , 'grinchy' => 0
+    ];
+
+    public static function addRatingAmount(rating:String) {
+        if(rating != 'sweet' && rating != 'nice' && rating != 'naughty' && rating != 'grinchy') throw 'Unexpected item in rating area. Please remove your ${rating}.';
+        else {
+            var rateInt:Int = perRating.get(rating);
+            perRating.set(rating, rateInt + 1);
+            trace(perRating.get(rating));
+        }
+    }
+
+    public static function getRatingAmount(rating:String):Int {
+        if(rating != 'sweet' && rating != 'nice' && rating != 'naughty' && rating != 'grinchy') throw 'Unexpected item in rating area. Please remove your ${rating}.';
+        else return perRating.get(rating);
+    }
+
+    public static function resetRatingAmount() {
+        for (key in perRating.keys()) perRating.set(key, 0);
+    }
+
+    public static function getRatings():Array<String> {
+        var ratingArray:Array<String> = new Array<String>();
+        for(key in perRating.keys()) ratingArray.push(key);
+        return ratingArray;
     }
 }

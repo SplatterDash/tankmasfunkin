@@ -10,6 +10,7 @@ import ui.Controls;
 
 import tankmasfunkin.global.Options;
 import tankmasfunkin.global.Paths;
+import tankmasfunkin.global.GameGlobal;
 
 /**
  * I honestly wanted to push for a menu if this
@@ -72,10 +73,8 @@ class MenuState extends flixel.FlxState
 		optionsButton = new FlxSpriteButton(200, 200, null, optionsMenu);
 		creditsButton = new FlxSpriteButton(200, 225, null, creditsMenu);
 		
-		fillColor = new FlxColor();
-		fillColor.setRGB(255, 109, 209);
-		outlineColor = new FlxColor();
-		outlineColor.setRGB(34, 29, 79);
+		fillColor = GameGlobal.getColor("fill");
+		outlineColor = GameGlobal.getColor("outline");
 
 		menuText.setFormat(Paths.font('upheaval-pro-regular'), 24, fillColor, CENTER, OUTLINE, outlineColor);
 		optionsText.setFormat(Paths.font('upheaval-pro-regular'), 24, fillColor, CENTER, OUTLINE, outlineColor);

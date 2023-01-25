@@ -16,6 +16,7 @@ import tankmasfunkin.global.Paths;
 import tankmasfunkin.global.Options;
 import tankmasfunkin.global.NGio;
 import tankmasfunkin.global.APIData;
+import tankmasfunkin.global.GameGlobal;
 import tankmasfunkin.game.Highscore;
 import tankmasfunkin.game.Rating;
 import flixel.util.FlxTimer;
@@ -34,6 +35,11 @@ class GameOverState extends FlxState
 {
 	//Initialize Variables Here
 	var finalScore:Int = PlayState.songScore;
+	var finalMiss:Int = PlayState.comboBreak;
+	public var headingText:FlxText;
+	public var ratings:Array<String>;
+	public var statText:FlxText;
+	public var statRateText:FlxText;
 	public var bg:FlxSprite;
 	public var mainAnim:FlxSprite;
 	public var gunAnim:FlxSprite;
@@ -47,26 +53,53 @@ class GameOverState extends FlxState
 	var notThereYet:Bool = true;
 	var lerpScore:Int = 0;
 	var restButt:FlxButton;
+		//hehe he said butt
+	var menuButt:FlxButton;
+		//hehe he said butt again
 	public static var newRecord:FlxText;
+	public var statInt:Int = 1;
 	public var startAdding:Bool = false;
 	public static var timer:FlxTimer;
+	public static var statTimer:FlxTimer;
 	public static var moveOn:Bool = false;
-	//hehe he said butt
+
+	public var fill:FlxColor = GameGlobal.getColor('fill');
+	public var outline:FlxColor = GameGlobal.getColor('outline');
 
 	//This is the Start function
 	override function create()
 	{
 		super.create();
 
-		var bgColor = new FlxColor();
-		bgColor.setRGB(82, 82, 82);
+		var bgColor = GameGlobal.getColor('black');
 
 		Global.camera.fade(FlxColor.BLACK, 1.3, true);
 		FlxG.mouse.visible = true;
 
+		ratings = Rating.getRatings();
+
 		bg = new FlxSprite(0, 0);
 		bg.makeGraphic(480, 270, bgColor);
 		add(bg);
+
+		headingText = new FlxText(0, 20, "SONG COMPLETE");
+		headingText.setFormat(Paths.font('upheaval-pro-regular'), 27, fill, CENTER, OUTLINE, outline);
+		headingText.screenCenter(X);
+		headingText.alpha = 0;
+		add(headingText);
+
+		statText = new FlxText(70, 80, 0, ratings[0]);
+		statText.setFormat(Paths.font('upheaval-pro-regular'), 21, fill, LEFT, OUTLINE, outline);
+		statText.alpha = 0;
+		add(statText);
+		for (i in 1...ratings.length) statText.text += '\n\n${ratings[i]}';
+		statText.text += '\n\nCombo Breaks';
+
+		statRateText = new FlxText(370, 80, 0, '${Rating.getRatingAmount(ratings[0])}');
+		statRateText.setFormat(Paths.font('upheaval-pro-regular'), 21, fill, LEFT, OUTLINE, outline);
+		statRateText.alpha = 0;
+		add(statRateText);
+		statRateText.x -= statRateText.width;
 
 		mainAnim = new FlxSprite(0, 0);
 		mainAnim.frames = Paths.getSparrowAtlas('ui/tankmasfinal1');
@@ -80,54 +113,61 @@ class GameOverState extends FlxState
 		add(gunAnim);
 		
 		FlxG.sound.playMusic(Paths.music('gameOver'), Options.inGameMusicVolume(), true);
-		scoreText = new FlxText(0, 40, 100, "FINAL SCORE:", 18);
-		scoreText.setFormat(null, 18, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		scoreText = new FlxText(0, 63, 100, "FINAL SCORE:");
+		scoreText.setFormat(Paths.font('upheaval-pro-regular'), 18, fill, CENTER, OUTLINE, outline);
 		scoreText.screenCenter(X);
 		scoreText.alpha = 0;
 		add(scoreText);
 
-		finalScoreText = new FlxText(0, 90, 0, "0", 24);
-		finalScoreText.setFormat(null, 24, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		finalScoreText = new FlxText(0, 90, 0, "0");
+		finalScoreText.setFormat(Paths.font('upheaval-pro-regular'), 24, fill, CENTER, OUTLINE, outline);
 		finalScoreText.screenCenter(X);
 		finalScoreText.alpha = 0;
 		add(finalScoreText);
 
-		ratingText = new FlxText(0, 130, 0, "Final Rating:", 24);
-		ratingText.setFormat(null, 18, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		ratingText = new FlxText(0, 130, 0, "Final Rating:");
+		ratingText.setFormat(Paths.font('upheaval-pro-regular'), 18, fill, CENTER, OUTLINE, outline);
 		ratingText.screenCenter(X);
 		ratingText.alpha = 0;
 		add(ratingText);
 
 		ratingRate = Rating.getRating(Std.parseFloat(Std.string(finalScore)));
 
-		finalRatingText = new FlxText(0, 125 + ratingText.height, 0, ratingRate, 24);
-		finalRatingText.setFormat(null, ratingRate == 'penis.' ? 30 : 24, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		finalRatingText = new FlxText(0, 128 + ratingText.height, 0, ratingRate);
+		finalRatingText.setFormat(Paths.font('upheaval-pro-regular'), ratingRate == 'penis.' ? 30 : 24, fill, CENTER, OUTLINE, outline);
 		if(ratingRate == 'penis.') finalRatingText.screenCenter() else finalRatingText.screenCenter(X);
 		finalRatingText.alpha = 0;
 		add(finalRatingText);
 
-		sympathyText = new FlxText(0, finalRatingText.y + finalRatingText.height, 0, "(don't actually though <3)", 24);
-		sympathyText.setFormat(null, 18, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		sympathyText = new FlxText(0, finalRatingText.y + finalRatingText.height, 0, "(don't actually though <3)");
+		sympathyText.setFormat(Paths.font('upheaval-pro-regular'), 18, fill, CENTER, OUTLINE, outline);
 		sympathyText.screenCenter(X);
 		sympathyText.alpha = 0;
 		add(sympathyText);
 		
-		bestScore = new FlxText(0, 180, 0, 'BEST as ${PlayState.charInt == 0 ? 'DD' : 'BF'}: ${Highscore.getScore(PlayState.charInt)}', 14);
-		bestScore.setFormat(null, 14, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		bestScore = new FlxText(0, 180, 0, 'BEST as ${PlayState.charInt == 0 ? 'DD' : 'BF'}: ${Highscore.getScore(PlayState.charInt)}');
+		bestScore.setFormat(Paths.font('upheaval-pro-regular'), 17, fill, CENTER, OUTLINE, outline);
 		bestScore.screenCenter(X);
 		bestScore.alpha = 0;
 		add(bestScore);
 
-		newRecord = new FlxText(0, 200, 0, 'NEW BEST!', 11);
-		newRecord.setFormat(null, 11, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		newRecord = new FlxText(0, 195, 0, 'NEW BEST!');
+		newRecord.setFormat(Paths.font('upheaval-pro-regular'), 14, fill, CENTER, OUTLINE, outline);
 		newRecord.screenCenter(X);
 		newRecord.alpha = 0;
 		add(newRecord);
 
 		restButt = new FlxButton(0, 240, "Restart", restartGame);
 		restButt.screenCenter(X);
+		restButt.x -= 40;
 		restButt.exists = false;
 		add(restButt);
+
+		menuButt = new FlxButton(0, 240, "Main Menu", function() { Global.switchState(new tankmasfunkin.states.MenuState()); });
+		menuButt.screenCenter(X);
+		menuButt.x += 40;
+		menuButt.exists = false;
+		add(menuButt);
 
 		mainAnim.animation.play('run', true);
 		gunAnim.animation.play('run', true);
@@ -138,10 +178,25 @@ class GameOverState extends FlxState
 				FlxTween.tween(gunAnim, {alpha: 0.6}, 1.2, {type: FlxTweenType.PERSIST});
 				FlxTween.tween(mainAnim, {alpha: 0.6}, 1.2, {type: FlxTweenType.PERSIST});
 				FlxTween.tween(bg, {alpha: 0.6}, 1.2, {type: FlxTweenType.PERSIST});
-				FlxTween.tween(scoreText, {alpha: 1}, 1.2, {type: FlxTweenType.PERSIST});
-				FlxTween.tween(finalScoreText, {alpha: 1}, 1.2, {type: FlxTweenType.PERSIST});
+				FlxTween.tween(headingText, {alpha: 1}, 1.2, {type: FlxTweenType.PERSIST});
+				FlxTween.tween(statText, {alpha: 1}, 1.2, {type: FlxTweenType.PERSIST});
 				timer = new FlxTimer().start(1.2, function(tmr:FlxTimer) {
-					startAdding = true;
+					statRateText.alpha = 1;
+					statTimer = new FlxTimer().start(0.5, function(tmr:FlxTimer) {
+						FlxG.sound.play(Paths.sound("addup"), Options.inGameSoundVolume());
+						statRateText.text += '\n\n${Rating.getRatingAmount(ratings[statInt])}';
+						statInt++;
+					}, ratings.length - 1);
+					timer = new FlxTimer().start(0.5 * (ratings.length), function(tmr:FlxTimer) {
+						statRateText.text += '\n\n$finalMiss';
+						FlxG.sound.play(Paths.sound("addcomplete"), Options.inGameSoundVolume());
+						timer = new FlxTimer().start(1.2, function(tmr:FlxTimer) {
+							FlxTween.tween(statRateText, {alpha: 0}, 1.2, {type: FlxTweenType.PERSIST});
+							FlxTween.tween(statText, {alpha: 0}, 1.2, {type: FlxTweenType.PERSIST});
+							FlxTween.tween(scoreText, {alpha: 1}, 1.2, {type: FlxTweenType.PERSIST});
+							FlxTween.tween(finalScoreText, {alpha: 1}, 1.2, {type: FlxTweenType.PERSIST, onComplete: function(twn:FlxTween) { startAdding = true; }});
+						}, 1);
+					}, 1);
 				}, 1);
 			}, 1);
 		}, 1);
@@ -192,6 +247,7 @@ class GameOverState extends FlxState
 							if(finalScore >= 0) Highscore.saveScore(PlayState.charInt, finalScore);
 							timer = new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 								restButt.exists = true;
+								menuButt.exists = true;
 							}, 1);
 						}, 1);
 					}, 1);

@@ -25,18 +25,18 @@ private typedef PlayStatusData = { code:String, duration:Float, position:Float, 
  * thing together.
  * 
  * How it works:
- *  -In PlayState.hx, the variable 
+ *  - In PlayState.hx, the variable 
  * "negativeCombo" gets added to when a note
  * is missed and the player makes no attempt to
  * hit it.
- *  -Every time a player makes a keystroke, that
+ *  - Every time a player makes a keystroke, that
  * combo resets.
- *  -If the combo hits 100, 200 or 300, it
+ *  - If the combo hits 100, 200 or 300, it
  * auto-pauses the game and comes to this
  * substate.
- *  -If the combo hits 300, it automatically
+ *  - If the combo hits 300, it automatically
  * launches the player back to the main menu
- * once the clip is complete.
+ * once the audio clip is complete.
  * 
  * I considered removing the Play button if the
  * player gets kicked back into that screen
@@ -45,7 +45,7 @@ private typedef PlayStatusData = { code:String, duration:Float, position:Float, 
  */
 
 class AFKSubState extends FlxSubState {
-    public var comboInteger:Int = 100;
+    public var comboInteger:Int = 1;
 	public var netStream:NetStream;
 	public var video:Video;
     public var videoEnded:Bool = false;

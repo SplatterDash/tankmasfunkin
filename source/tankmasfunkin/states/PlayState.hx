@@ -1,35 +1,23 @@
 package tankmasfunkin.states;
 
-import flixel.group.FlxSpriteGroup;
 import tankmasfunkin.game.Section.SwagSection;
-import tankmasfunkin.game.Song;
 import tankmasfunkin.game.Song.SwagSong;
 import tankmasfunkin.game.Note;
 import tankmasfunkin.game.Character;
 import tankmasfunkin.game.Boyfriend;
 import tankmasfunkin.game.Conductor;
-import tankmasfunkin.game.Highscore;
 import tankmasfunkin.game.Rating;
 import tankmasfunkin.states.MusicBeatState;
 import tankmasfunkin.states.GameOverState;
 import tankmasfunkin.global.Paths;
 import tankmasfunkin.global.Options;
+import tankmasfunkin.global.GameGlobal;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
-import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.FlxSubState;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.effects.FlxTrail;
-import flixel.addons.effects.FlxTrailArea;
-import flixel.addons.effects.chainable.FlxEffectSprite;
-import flixel.addons.effects.chainable.FlxWaveEffect;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.graphics.atlas.FlxAtlas;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -38,25 +26,49 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.ui.FlxBar;
-import flixel.util.FlxCollision;
-import flixel.util.FlxColor;
 import flixel.util.FlxSort;
-import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
-import haxe.Json;
-import lime.utils.Assets;
-import openfl.display.BlendMode;
-import openfl.display.StageQuality;
-import openfl.filters.ShaderFilter;
 
 using StringTools;
 
 /** 
- * Worth noting that a majority of this entire project got 
- * coded in a week, quite a bit came from FNF's source but
- * a lot also had to be tweaked to fit this minigame. Still,
- * go give the FNF source a shoutout!
+ * I forgot about the blurb that was here and I
+ * didn't update it before the initial release LOL
+ * 
+ * Long story short, to settle the debate: a good
+ * majority of the code for the game came from FNF's
+ * source, and that "most of the code" is here.
+ * Only the things that were needed were carried
+ * from the source, so things like FreeplayState,
+ * Alphabet, and Dialogue were all left behind. The
+ * things that made the gameplay work, such as Song,
+ * Section and Note, were carried over because this
+ * file called them. So technically I consider this a
+ * mod because the core gameplay elements are here.
+ * 
+ * That's not to say everything in here's copy-pasted.
+ * I had to change quite a bit, and because the source
+ * called its stages from inside this file I used that
+ * to create the stage. I had to also modify where the
+ * strum line showed up because of the character
+ * selection feature. Other additional things include
+ * the events on each of the beats (stage disappearing,
+ * characters appearing, things floating in the BG,
+ * etc), combo breaks, and separation of vocals.
+ * 
+ * In Tankmas Funkin, the game seperates the vocals of
+ * DD and BF. It stores them both in an array so that
+ * when both need to do something at the same time, a
+ * `for (vox in vocals)` loop could be called. As the 
+ * player misses notes however, it could call upon only
+ * the player's vocals and mute them instead of muting
+ * the vocals on both sides.
+ * 
+ * I was also debating doing a time bar, but jEEZ when
+ * I looked at Psych Engine's code to figure it out it
+ * looked complicated as heck LOL. There's probably a
+ * simpler way to do it, but I'm not gonna bother for
+ * right now.
 **/
 class PlayState extends MusicBeatState
 {
@@ -370,7 +382,7 @@ class PlayState extends MusicBeatState
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
 
-		generateSong('spiritoftankmas');
+		generateSong(SONG.song); //why did I change it to read 'spiritoftankmas' only when I loaded it up already in the CharSelect file
 
 		camFollow = new FlxObject(0, -500, 1, 1);
 
@@ -393,7 +405,7 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 
 		scoreTxt = new FlxText((Global.width) / 2, 280, 0, "", 20);
-		scoreTxt.setFormat(null, 13, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font('upheaval-pro-regular'), 15, GameGlobal.getColor('fill'), CENTER, OUTLINE, GameGlobal.getColor('outline'));
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
@@ -762,7 +774,7 @@ class PlayState extends MusicBeatState
 				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 			}
 
-			//needed this for testing purposes
+			//needed this for testing purposes and idk how the if debug statements work
 			//if(Controls.justPressed.B) endSong();
 
 			if(negativeCombo >= 100) {
@@ -1034,6 +1046,7 @@ class PlayState extends MusicBeatState
 		var coolText:FlxText = new FlxText(85, 0, 0, placement, 32);
 
 		var rating:FlxSprite = new FlxSprite();
+		rating.cameras = [camHUD];
 
 		var daRating:String = "sweet";
 
@@ -1055,6 +1068,7 @@ class PlayState extends MusicBeatState
 		songScore += Std.int(scoreArray[0]);
 		ratingTxt = Rating.getRating(Std.int(songScore));
 		scoreTxt.x = (Global.width / 2) - (scoreTxt.width / 2);
+		Rating.addRatingAmount(daRating);
 
 
 
@@ -1068,13 +1082,14 @@ class PlayState extends MusicBeatState
 		rating.velocity.x -= FlxG.random.int(0, 10);
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/combo'));
+		
 		comboSpr.screenCenter();
 		comboSpr.x = coolText.x;
 		comboSpr.acceleration.y = 600;
 		comboSpr.velocity.y -= 150;
 
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
-		add(rating);
+		insert(members.indexOf(strumLineNotes), rating);
 
 		rating.setGraphicSize(Std.int(rating.width * daPixelZoom * 0.7));
 		comboSpr.setGraphicSize(Std.int(comboSpr.width * daPixelZoom * 0.7));
@@ -1092,6 +1107,7 @@ class PlayState extends MusicBeatState
 		for (i in seperatedScore)
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/num' + Std.int(i)));
+			numScore.cameras = [camHUD];
 			numScore.screenCenter();
 			numScore.x = coolText.x + (30 * daLoop) + 10;
 			numScore.y += 10;
@@ -1103,7 +1119,7 @@ class PlayState extends MusicBeatState
 			numScore.velocity.x = FlxG.random.float(-5, 5);
 
 			if (combo >= 10)
-				add(numScore);
+				insert(members.indexOf(strumLineNotes), numScore);
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween)

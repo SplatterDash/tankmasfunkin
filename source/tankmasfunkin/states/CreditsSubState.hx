@@ -30,6 +30,12 @@ class CreditsSubState extends FlxSubState {
     public var moveOn:Bool;
     public static var page:Int = 0;
 
+    //might centralize these, idk
+    public static var fillColor:FlxColor;
+	public static var outlineColor:FlxColor;
+    public static var white:FlxColor;
+	public static var black:FlxColor;
+
     public function new(moveOn:Bool = true) {
         super();
 
@@ -41,15 +47,20 @@ class CreditsSubState extends FlxSubState {
         panelRec.updateHitbox();
         add(panelRec);
 
+        fillColor = GameGlobal.getColor("fill");
+		outlineColor = GameGlobal.getColor("outline");
+        black = GameGlobal.getColor("black");
+        white = GameGlobal.getColor("white");
+
         mainScreen = new Array<FlxSprite>();
 
         selectionText = new FlxText(50, 20, 400, "Credits");
-        selectionText.setFormat(null, 24, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 24, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
-        selectionText = new FlxText(50, 45, 400, "Click on any credit to view the NG page!");
-        selectionText.setFormat(null, 8, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText = new FlxText(50, 30, 400, "Click on any credit to view the NG page!");
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 13, white, CENTER, OUTLINE, black);
         mainScreen.push(selectionText);
         add(selectionText);
         
@@ -78,8 +89,8 @@ class CreditsSubState extends FlxSubState {
         mainScreen.push(creditsIcon);
         add(creditsIcon);
 
-        selectionText = new FlxText(45, 125, 94, "SplatterDash");
-        selectionText.setFormat(null, 11, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText = new FlxText(40, 125, 104, "SplatterDash");
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 14, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
@@ -90,7 +101,7 @@ class CreditsSubState extends FlxSubState {
         add(button1);
 
         selectionText = new FlxText(139, 125, 94, "JRetrioX");
-        selectionText.setFormat(null, 11, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 14, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
@@ -100,8 +111,8 @@ class CreditsSubState extends FlxSubState {
         mainScreen.push(button1);
         add(button1);
 
-        selectionText = new FlxText(233, 125, 94, "TheDyingSun");
-        selectionText.setFormat(null, 11, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText = new FlxText(228, 125, 104, "TheDyingSun");
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 14, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
@@ -112,7 +123,7 @@ class CreditsSubState extends FlxSubState {
         add(button1);
 
         selectionText = new FlxText(327, 125, 94, "JDogg");
-        selectionText.setFormat(null, 11, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 14, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
@@ -123,27 +134,27 @@ class CreditsSubState extends FlxSubState {
         add(button1);
 
         selectionText = new FlxText(55, 137, 80, 'Organizer, Musician, Coder');
-        selectionText.setFormat(null, 7, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 11, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
         selectionText = new FlxText(149, 137, 74, "Sprite/UI Artist");
-        selectionText.setFormat(null, 8, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 11, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
-        selectionText = new FlxText(243, 137, 74, 'Background/\nSprite Artist');
-        selectionText.setFormat(null, 8, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText = new FlxText(243, 137, 74, 'Background/Sprite Artist');
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 11, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
         selectionText = new FlxText(337, 137, 74, 'Chart Creator');
-        selectionText.setFormat(null, 8, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 11, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
         selectionText = new FlxText(30, 166, 210, 'Menu Music - "Christmas Medley" (lhavf)');
-        selectionText.setFormat(null, 9, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 15, white, LEFT, OUTLINE, black);
         mainScreen.push(selectionText);
         add(selectionText);
 
@@ -154,7 +165,7 @@ class CreditsSubState extends FlxSubState {
         add(button1);
 
         selectionText = new FlxText(245, 166, 210, 'Game Over Music - "8Bit Chiptune Christmas Medley" (Fantomenk)');
-        selectionText.setFormat(null, 9, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 15, white, LEFT, OUTLINE, black);
         mainScreen.push(selectionText);
         add(selectionText);
 
@@ -165,7 +176,7 @@ class CreditsSubState extends FlxSubState {
         add(button1);
 
         selectionText = new FlxText(30, 200, 0, 'Song - "Spirit of Tankmas" (SplatterDash)');
-        selectionText.setFormat(null, 11, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 17, white, LEFT, OUTLINE, black);
         selectionText.screenCenter(X);
         mainScreen.push(selectionText);
         add(selectionText);
@@ -179,37 +190,37 @@ class CreditsSubState extends FlxSubState {
 
         thanksScreen = new Array<FlxSprite>();
 
-        selectionText = new FlxText(50, 20, 400, "- Special Thanks -");
-        selectionText.setFormat(null, 24, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText = new FlxText(50, 35, 400, "- Special Thanks -");
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 24, fillColor, CENTER, OUTLINE, outlineColor);
         thanksScreen.push(selectionText);
         add(selectionText);
 
         selectionText = new FlxText(20, 55, 430, '>Previous Calendar Organizers: TurkeyOnAStick (NG 2012), PuffballsUnited (Flash 2012), ninjamuffin (NG 2018), BrandyBuizel & GeoKureli (NG 2019, 2020 & 2022), TheDyingSun & KnoseDoge (NG 2021)\n> Advent Calendar Teams Past And Present (check out the Tankmas Adventure collection to see them all!)\n> The NG Community & Tom Fulp (our lord and savior)\n> The Funkin Crew');
-        selectionText.setFormat(null, 12, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 17, fillColor, LEFT, OUTLINE, outlineColor);
         selectionText.screenCenter(X);
         thanksScreen.push(selectionText);
         add(selectionText);
 
-        selectionText = new FlxText(0, 180, 0, '${Controls.mode == Keys ? 'CLICK' : 'TAP'} HERE TO SUPPORT DA FUNK');
-        selectionText.setFormat(null, 21, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText = new FlxText(0, 185, 0, '${Controls.mode == Keys ? 'CLICK' : 'TAP'} HERE TO SUPPORT DA FUNK');
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 26, white, CENTER, OUTLINE, black);
         thanksScreen.push(selectionText);
         add(selectionText);
         selectionText.screenCenter(X);
 
-        button1 = new FlxSpriteButton(selectionText.x, 180, null, () -> FlxG.openURL('https://www.newgrounds.com/portal/view/770371'));
+        button1 = new FlxSpriteButton(selectionText.x, 185, null, () -> FlxG.openURL('https://www.newgrounds.com/portal/view/770371'));
         button1.makeGraphic(Std.int(selectionText.width), Std.int(selectionText.height), FlxColor.PINK);
         button1.alpha = 0;
         thanksScreen.push(button1);
         add(button1);
 
         selectionText = new FlxText(0, 205, 0, "(right where it originated!)");
-        selectionText.setFormat(null, 12, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 12, fillColor, CENTER, OUTLINE, outlineColor);
         thanksScreen.push(selectionText);
         add(selectionText);
         selectionText.screenCenter(X);
 
         selectionText = new FlxText(35, 225, 440, 'Return to Main Menu: ${back} --- Next Page: ${conf}');
-        selectionText.setFormat(null, 10, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 15, white, CENTER, OUTLINE, black);
         selectionText.screenCenter(X);
         add(selectionText);
 

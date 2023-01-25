@@ -4,7 +4,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Tankmas Funkin" file="tankmasfunkin" main="Main" version="1.0.0" company="TankmasFunkin co" />
+	<app title="Tankmas Funkin" file="tankmasfunkin" main="Main" version="1.0.5" company="TankmasFunkin co" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -33,6 +33,23 @@
 	<source path="source" />
 	<classpath name="standAloneSource" path="standAloneSource"/>
 	<assets path="assets" />
+
+		<define name="PRELOAD_ALL" unless="web" />
+	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
+	
+	<section if="PRELOAD_ALL">
+		<library name="data"     preload="true" />
+		<library name="images"   preload="true" />
+		<library name="sounds"   preload="true" />
+		<library name="music"    preload="true" />
+	</section>
+
+		<section if="NO_PRELOAD_ALL">
+		<library name="data"     preload="false" />
+		<library name="images"   preload="false" />
+		<library name="sounds"   preload="false" />
+		<library name="music"    preload="false" />
+	</section>
 	
 	<!-- Directive enabled when playing the advent game without launching via advent -->
 	<define name="STAND_ALONE" />

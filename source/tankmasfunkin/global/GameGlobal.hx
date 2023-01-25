@@ -67,14 +67,14 @@ class GameGlobal
                     var leftKeys:Array<FlxKey> = ControlsList.keys.get(Action.LEFT);
                     var rightKeys:Array<FlxKey> = ControlsList.keys.get(Action.RIGHT);
 
-                    return output = '${InputFormatter.getKeyName(leftKeys[0])}, ${InputFormatter.getKeyName(upKeys[0])}, ${InputFormatter.getKeyName(downKeys[0])}, ${InputFormatter.getKeyName(rightKeys[0])} or ${InputFormatter.getKeyName(leftKeys[1])}, ${InputFormatter.getKeyName(upKeys[1])}, ${InputFormatter.getKeyName(downKeys[1])}, ${InputFormatter.getKeyName(rightKeys[1])}';
+                    return output = '${InputFormatter.getKeyName(leftKeys[0])}/${InputFormatter.getKeyName(upKeys[0])}/${InputFormatter.getKeyName(downKeys[0])}/${InputFormatter.getKeyName(rightKeys[0])}, ${InputFormatter.getKeyName(leftKeys[1])}/${InputFormatter.getKeyName(upKeys[1])}/${InputFormatter.getKeyName(downKeys[1])}/${InputFormatter.getKeyName(rightKeys[1])}';
 
                 default: return output = 'the Slam Your Face Button(c) and call for help';
             } else {
                 var duoKeys = ControlsList.keys.get(action);
                 var keyMain = InputFormatter.getKeyName(duoKeys[0]);
                 var keyAlt = InputFormatter.getKeyName(duoKeys[1]);
-                return output = '${keyMain} or ${keyAlt}';
+                return output = '${keyMain}/${keyAlt}';
             }
         } else {
             if (specialAction != null) switch(specialAction) {
@@ -91,8 +91,21 @@ class GameGlobal
                 var duoButtons = ControlsList.buttons.get(action);
                 var buttonMain = InputFormatter.getButtonName(duoButtons[0]);
                 var buttonAlt = InputFormatter.getButtonName(duoButtons[1]);
-                return output = '${buttonMain} or ${buttonAlt}';
+                return output = '${buttonMain}/${buttonAlt}';
             }
         }
+    }
+
+    public static function getColor(name:String):FlxColor {
+        var color = new FlxColor();
+        switch (name)
+        {
+            case "fill": color.setRGB(255, 109, 209);
+            case "outline": color.setRGB(34, 29, 79);
+            case "black": color.setRGB(0, 0, 0);
+            case "white": color.setRGB(255, 255, 255);
+            default: color.setRGB(255, 0, 0);
+        }
+        return color;
     }
 }

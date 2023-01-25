@@ -17,7 +17,9 @@ import tankmasfunkin.global.Paths;
  * game is that this isn't actually a loading
  * screen. It's a phony loading screen trying
  * to give the eyes something to look at while
- * nothing happens. I'm not joking.
+ * nothing happens. I'm not joking. Otherwise
+ * it'd just go directly to the song, and that's
+ * no fun.
  */
 class LoadingState extends MusicBeatState
 {
@@ -35,6 +37,9 @@ class LoadingState extends MusicBeatState
 
     override function create()
         {
+            var black = GameGlobal.getColor('black');
+            var white = GameGlobal.getColor('white');
+
             var pause = GameGlobal.getSelectionInputs(null, Action.PAUSE);
             var nav = GameGlobal.getSelectionInputs("navigation");
             FlxG.sound.play(Paths.sound('confirm3'), Options.inGameSoundVolume());
@@ -46,13 +51,13 @@ class LoadingState extends MusicBeatState
             loadingBG.screenCenter();
             add(loadingBG);
 
-            var loadingText:FlxText = new FlxText (0, 15, 0, "Loading...");
-            loadingText.setFormat(null, 50, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+            var loadingText:FlxText = new FlxText (0, -15, 0, "Loading...");
+            loadingText.setFormat(Paths.font('upheaval-pro-regular'), 50, white, CENTER, OUTLINE, black);
             loadingText.screenCenter(XY);
             add(loadingText);
 
-            var directionText:FlxText = new FlxText(0, Global.height, 460, 'Use ${nav} to control your character. Press ${pause} to pause.');
-            directionText.setFormat(null, 11, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+            var directionText:FlxText = new FlxText(0, Global.height, 460, 'Character controls: ${nav}\nPause: ${pause}');
+            directionText.setFormat(Paths.font('upheaval-pro-regular'), 14, white, CENTER, OUTLINE, black);
             directionText.screenCenter(X);
             directionText.y = Global.height - (directionText.height + 10);
             add(directionText);
