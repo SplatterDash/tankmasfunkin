@@ -44,7 +44,6 @@ class Rating {
         else {
             var rateInt:Int = perRating.get(rating);
             perRating.set(rating, rateInt + 1);
-            trace(perRating.get(rating));
         }
     }
 

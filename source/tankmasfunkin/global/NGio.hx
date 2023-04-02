@@ -103,9 +103,9 @@ class NGio
 		
 		// Reading medal info
 		for (id in NG.core.medals.keys()) {
-			
 			var medal = NG.core.medals[id];
 			trace('loaded medal id:$id, name:${medal.name}, description:${medal.description}');
+			if(medal.name == 'Coming In From The Cold' && !medal.unlocked) medal.sendUnlock();
 		}
 	}
 

@@ -11,6 +11,7 @@ import ui.Controls;
 import tankmasfunkin.global.Options;
 import tankmasfunkin.global.Paths;
 import tankmasfunkin.global.GameGlobal;
+import tankmasfunkin.game.Song;
 
 /**
  * I honestly wanted to push for a menu if this
@@ -45,11 +46,12 @@ class MenuState extends flixel.FlxState
 	override public function create()
 	{
 		super.create();
+		FlxG.mouse.visible = true;
 
 		moveOn = false;
 		
 		// Only needs to be called once
-		FlxG.sound.playMusic(Paths.music('mainMenu'));
+		FlxG.sound.playMusic(Paths.music('mainMenu'), Options.inGameMusicVolume());
 
 		doorClosed = new FlxSprite(0, 0, Paths.image('ui/menu/doorclosed'));
 		doorClosed.setSize(Std.int(doorClosed.width * 2), Std.int(doorClosed.height * 2));
@@ -96,9 +98,6 @@ class MenuState extends flixel.FlxState
 		menuButton.onOver.callback = () -> selectionFunction(true, 0);
 		optionsButton.onOver.callback = () -> selectionFunction(true, 1);
 		creditsButton.onOver.callback = () -> selectionFunction(true, 2);
-		menuButton.onUp.sound = FlxG.sound.load(Paths.sound("gamestartup"));
-		optionsButton.onUp.sound = FlxG.sound.load(Paths.sound("confirm"));
-		creditsButton.onUp.sound = FlxG.sound.load(Paths.sound("confirm"));
 		menuButton.alpha = 0;
 		optionsButton.alpha = 0;
 		creditsButton.alpha = 0;
@@ -119,7 +118,12 @@ class MenuState extends flixel.FlxState
 		super.update(elapsed);
 		
 		if (Controls.justPressed.A) {
-			if(selection == 0 && !moveOn && !credits && !options) gameStartup();
+			if(selection == 0 && !moveOn && !credits && !options) {
+				if(Options.getUiOption('botplay')) {
+					PlayState.SONG = Song.loadFromJson('spiritoftankmas', 'level');
+					Global.switchState(new LoadingState(new PlayState(), true));
+				} else gameStartup();
+			}
 			else if (selection == 1 && !moveOn && !credits && !options) optionsMenu();
 			else if (selection == 2 && !moveOn && !credits && !options) creditsMenu();
 		}

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="notesplash.png">
+<SubTexture name="notesplash green 10000" x="0" y="0" width="86" height="86" frameX="-2" frameY="8" frameWidth="82" frameHeight="82" />
+<SubTexture name="notesplash green 10001" x="86" y="0" width="96" height="96" frameX="-2" frameY="6" frameWidth="92" frameHeight="92" />
+<SubTexture name="notesplash green 10002" x="182" y="0" width="106" height="104" frameX="2" frameY="2" frameWidth="102" frameHeight="100" />
+<SubTexture name="notesplash green 10003" x="288" y="0" width="106" height="104" frameX="0" frameY="2" frameWidth="102" frameHeight="100" />
+<SubTexture name="notesplash green 20000" x="0" y="104" width="70" height="80" frameX="-14" frameY="16" frameWidth="66" frameHeight="76" />
+<SubTexture name="notesplash green 20001" x="70" y="104" width="92" height="98" frameX="-6" frameY="8" frameWidth="88" frameHeight="94" />
+<SubTexture name="notesplash green 20002" x="162" y="104" width="102" height="108" frameX="-2" frameY="4" frameWidth="98" frameHeight="104" />
+<SubTexture name="notesplash green 20003" x="264" y="104" width="106" height="118" frameX="0" frameY="0" frameWidth="102" frameHeight="114" />
+<SubTexture name="notesplash red 10000" x="0" y="222" width="86" height="86" frameX="-2" frameY="8" frameWidth="82" frameHeight="82" />
+<SubTexture name="notesplash red 10001" x="86" y="222" width="96" height="96" frameX="-2" frameY="6" frameWidth="92" frameHeight="92" />
+<SubTexture name="notesplash red 10002" x="182" y="222" width="106" height="104" frameX="2" frameY="2" frameWidth="102" frameHeight="100" />
+<SubTexture name="notesplash red 10003" x="288" y="222" width="106" height="104" frameX="0" frameY="2" frameWidth="102" frameHeight="100" />
+<SubTexture name="notesplash red 20000" x="0" y="326" width="70" height="80" frameX="-14" frameY="16" frameWidth="66" frameHeight="76" />
+<SubTexture name="notesplash red 20001" x="70" y="326" width="92" height="98" frameX="-6" frameY="8" frameWidth="88" frameHeight="94" />
+<SubTexture name="notesplash red 20002" x="162" y="326" width="102" height="108" frameX="-2" frameY="4" frameWidth="98" frameHeight="104" />
+<SubTexture name="notesplash red 20003" x="264" y="326" width="106" height="118" frameX="0" frameY="0" frameWidth="102" frameHeight="114" />
+</TextureAtlas>

@@ -54,16 +54,21 @@ class CreditsSubState extends FlxSubState {
 
         mainScreen = new Array<FlxSprite>();
 
-        selectionText = new FlxText(50, 20, 400, "Credits");
+        selectionText = new FlxText(50, 25, 400, "Credits");
         selectionText.setFormat(Paths.font('upheaval-pro-regular'), 24, fillColor, CENTER, OUTLINE, outlineColor);
         mainScreen.push(selectionText);
         add(selectionText);
 
-        selectionText = new FlxText(50, 30, 400, "Click on any credit to view the NG page!");
+        selectionText = new FlxText(50, 40, 400, "Click on any credit to view the NG page!");
         selectionText.setFormat(Paths.font('upheaval-pro-regular'), 13, white, CENTER, OUTLINE, black);
         mainScreen.push(selectionText);
         add(selectionText);
         
+        button1 = new FlxSpriteButton(50, 40, null, () -> FlxG.openURL('https://www.newgrounds.com/portal/view/285267'));
+        button1.makeGraphic(Std.int(selectionText.width), Std.int(selectionText.height), FlxColor.BLACK);
+        button1.alpha = 0;
+        mainScreen.push(button1);
+        add(button1);
 
         creditsIcon = new FlxSprite(60, 60, Paths.image('ui/menu/icon_spd'));
         creditsIcon.setGraphicSize(64, 64);
@@ -175,15 +180,24 @@ class CreditsSubState extends FlxSubState {
         mainScreen.push(button1);
         add(button1);
 
-        selectionText = new FlxText(30, 200, 0, 'Song - "Spirit of Tankmas" (SplatterDash)');
-        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 17, white, LEFT, OUTLINE, black);
-        selectionText.screenCenter(X);
+        selectionText = new FlxText(30, 200, 210, 'Main Song - "Spirit of Tankmas" (SplatterDash)');
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 15, white, LEFT, OUTLINE, black);
         mainScreen.push(selectionText);
         add(selectionText);
 
         button1 = new FlxSpriteButton(30, 200, null, () -> FlxG.openURL('https://www.newgrounds.com/audio/listen/1189795'));
         button1.makeGraphic(Std.int(selectionText.width), Std.int(selectionText.height), FlxColor.GREEN);
-        button1.screenCenter(X);
+        button1.alpha = 0;
+        mainScreen.push(button1);
+        add(button1);
+
+        selectionText = new FlxText(245, 200, 210, 'Pause Menu - "Mantlepiece" (SplatterDash)');
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 15, white, LEFT, OUTLINE, black);
+        mainScreen.push(selectionText);
+        add(selectionText);
+
+        button1 = new FlxSpriteButton(245, 200, null, () -> FlxG.openURL('https://www.newgrounds.com/audio/listen/1181001'));
+        button1.makeGraphic(Std.int(selectionText.width), Std.int(selectionText.height), FlxColor.GREEN);
         button1.alpha = 0;
         mainScreen.push(button1);
         add(button1);
@@ -195,31 +209,31 @@ class CreditsSubState extends FlxSubState {
         thanksScreen.push(selectionText);
         add(selectionText);
 
-        selectionText = new FlxText(20, 55, 430, '>Previous Calendar Organizers: TurkeyOnAStick (NG 2012), PuffballsUnited (Flash 2012), ninjamuffin (NG 2018), BrandyBuizel & GeoKureli (NG 2019, 2020 & 2022), TheDyingSun & KnoseDoge (NG 2021)\n> Advent Calendar Teams Past And Present (check out the Tankmas Adventure collection to see them all!)\n> The NG Community & Tom Fulp (our lord and savior)\n> The Funkin Crew');
+        selectionText = new FlxText(20, 60, 430, '>Previous Calendar Organizers: TurkeyOnAStick (NG 2012), PuffballsUnited (Flash 2012), ninjamuffin (NG 2018), BrandyBuizel & GeoKureli (NG 2019, 2020 & 2022), TheDyingSun & KnoseDoge (NG 2021)\n> Advent Calendar Teams Past And Present (check out the Tankmas Adventure collection to see them all!)\n> The NG Community & Tom Fulp (our lord and savior)\n> The Funkin Crew');
         selectionText.setFormat(Paths.font('upheaval-pro-regular'), 17, fillColor, LEFT, OUTLINE, outlineColor);
         selectionText.screenCenter(X);
         thanksScreen.push(selectionText);
         add(selectionText);
 
-        selectionText = new FlxText(0, 185, 0, '${Controls.mode == Keys ? 'CLICK' : 'TAP'} HERE TO SUPPORT DA FUNK');
+        selectionText = new FlxText(0, 190, 0, '${Controls.mode == Keys ? 'CLICK' : 'TAP'} HERE TO SUPPORT DA FUNK');
         selectionText.setFormat(Paths.font('upheaval-pro-regular'), 26, white, CENTER, OUTLINE, black);
         thanksScreen.push(selectionText);
         add(selectionText);
         selectionText.screenCenter(X);
 
-        button1 = new FlxSpriteButton(selectionText.x, 185, null, () -> FlxG.openURL('https://www.newgrounds.com/portal/view/770371'));
+        button1 = new FlxSpriteButton(selectionText.x, 190, null, () -> FlxG.openURL('https://www.newgrounds.com/portal/view/770371'));
         button1.makeGraphic(Std.int(selectionText.width), Std.int(selectionText.height), FlxColor.PINK);
         button1.alpha = 0;
         thanksScreen.push(button1);
         add(button1);
 
-        selectionText = new FlxText(0, 205, 0, "(right where it originated!)");
+        selectionText = new FlxText(0, 210, 0, "(right where it originated!)");
         selectionText.setFormat(Paths.font('upheaval-pro-regular'), 12, fillColor, CENTER, OUTLINE, outlineColor);
         thanksScreen.push(selectionText);
         add(selectionText);
         selectionText.screenCenter(X);
 
-        selectionText = new FlxText(35, 225, 440, 'Return to Main Menu: ${back} --- Next Page: ${conf}');
+        selectionText = new FlxText(35, 230, 440, 'Return to Main Menu: ${back} --- Next Page: ${conf}');
         selectionText.setFormat(Paths.font('upheaval-pro-regular'), 15, white, CENTER, OUTLINE, black);
         selectionText.screenCenter(X);
         add(selectionText);

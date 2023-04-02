@@ -56,7 +56,7 @@ class LoadingState extends MusicBeatState
             loadingText.screenCenter(XY);
             add(loadingText);
 
-            var directionText:FlxText = new FlxText(0, Global.height, 460, 'Character controls: ${nav}\nPause: ${pause}');
+            var directionText:FlxText = new FlxText(0, Global.height, 460, Options.getUiOption('botplay') ? 'Currently playing in Botplay mode\nPause: ${pause}' : 'Character controls: ${nav}\nPause: ${pause}');
             directionText.setFormat(Paths.font('upheaval-pro-regular'), 14, white, CENTER, OUTLINE, black);
             directionText.screenCenter(X);
             directionText.y = Global.height - (directionText.height + 10);

@@ -6,6 +6,7 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import tankmasfunkin.states.PlayState;
 import tankmasfunkin.global.Paths;
+import tankmasfunkin.global.Options;
 
 using StringTools;
 
@@ -60,7 +61,7 @@ class Note extends FlxSprite
 
 		x += 33;
 
-		y -= 2000;
+		if (Options.getUiOption('downscroll')) y += 4000 else y -= 2000;
 		this.strumTime = strumTime;
 		this.noteData = noteData;
 		this.mustHitNote = mustHitNote;
@@ -113,7 +114,7 @@ class Note extends FlxSprite
 		{
 			noteScore * 0.2;
 			alpha = 0.6;
-
+			if(Options.getUiOption('downscroll')) flipY = true;
 			x += width - 5;
 
 			switch (noteData)
@@ -145,7 +146,7 @@ class Note extends FlxSprite
 				} 
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 0.98 * PlayState.SONG.speed;
 				prevNote.updateHitbox();
-
+				if (Options.getUiOption('downscroll')) prevNote.strumTime += 65;
 			}
 		}
 	}

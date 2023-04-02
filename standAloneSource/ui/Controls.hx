@@ -5,6 +5,7 @@ import flixel.input.FlxInput;
 import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
+import tankmasfunkin.global.Options;
 
 /**
  * Man, getting this to be modular was a pain LOL
@@ -43,6 +44,8 @@ class Controls extends flixel.FlxBasic
             case Gamepad if (FlxG.keys.pressed.ANY): Gamepad; 
             case _: mode;
         }
+
+        if(FlxG.keys.pressed.ESCAPE) Options.setUiOption('fullscreen', false);
     }
     
     static var instance:Controls = null;
@@ -60,7 +63,6 @@ class Controls extends flixel.FlxBasic
         instance.active = !FlxG.onMobile;
         FlxG.plugins.add(instance);
     }
-
 }
 
 class ControlsList
@@ -119,6 +121,19 @@ class ControlsList
         }
         return false;
     }
+
+    public static function saveKeyBinds()
+        {
+            FlxG.save.data.keyBinds = keys;
+            FlxG.save.data.buttonBinds = buttons;
+            FlxG.save.flush();
+        }
+
+    public static function loadKeyBinds()
+        {
+            if (FlxG.save.data.keyBinds) keys = FlxG.save.data.keyBinds;
+            if (FlxG.save.data.buttonBinds) buttons = FlxG.save.data.buttonBinds;
+        }
 
         // public function bindKeys(action:Action, keyToAdd:FlxKey)
         //     {

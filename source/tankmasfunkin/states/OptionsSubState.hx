@@ -16,6 +16,7 @@ import tankmasfunkin.game.Rating;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.addons.ui.FlxSlider;
+import flixel.addons.ui.FlxUICheckBox;
 
 /**I literally kid you not, I coded the majority
  * of this ham-fisted, compacted Options menu in
@@ -27,16 +28,18 @@ import flixel.addons.ui.FlxSlider;
  */
 
 class OptionsSubState extends flixel.FlxSubState {
-    public var optionOptions:Array<String> = ['How To Play', 'Controls Config', 'Audio Config'];
+    public var optionOptions:Array<String> = ['How To Play', 'Controls Config', 'Audio Config', 'Gameplay Config'];
     public var inVolume:Bool = false;
     public var inControls:Bool = false;
     public var inPlay:Bool = false;
+    public var inUI:Bool = false;
     public var remap:Bool = false;
     public var volAdj:Bool = false;
     public var mainOptionChoice:Int = 1;
     public var controlChoice:Int = 0;
     public var volumeChoice:Int = 1;
     public var playPage:Int = 1;
+    public var uiChoice:Int = 0;
 
     public var fillColor:FlxColor;
     public var outlineColor:FlxColor;
@@ -48,6 +51,7 @@ class OptionsSubState extends flixel.FlxSubState {
     public var controlAssets:Array<Dynamic>;
     public var playAssets:Map<Int, Array<Dynamic>>;
     public var playPageArray:Array<Dynamic>;
+    public var uiAssets:Map<Int, Array<Dynamic>>;
 
     public static var masterSound:FlxSprite;
     public var masterSoundBar:FlxSlider;
@@ -80,15 +84,27 @@ class OptionsSubState extends flixel.FlxSubState {
 
     public var controlAnim:FlxSprite;
 
+    public var checkBox:FlxUICheckBox;
+    public static var uiOptionArray:Array<Array<String>> = [
+        ['Downscroll', 'Play with the arrows scrolling down instead of up. Toggling off will enable upscroll.', 'downscroll'],
+        ['Middlescroll', 'Place your arrows front and center while hiding the opponent\'s arrows!', 'middlescroll'],
+        ['Practice Mode', 'Play without ghost taps hurting your score! Scores at the end of the round will not be saved.', 'practice'],
+        ['Botplay', 'Simply watch the game happen on both sides. Scores at the end of the round will not be saved.', 'botplay'],
+        ['Disable Song Timer', 'Checking this will disable the song timer from view.', 'hidetime'],
+        ['Disable Score Text', 'Checking this will disable the rating/combo break text from view.', 'hidescore'],
+        ['Fullscreen', 'Enables fullscreen mode.', 'fullscreen']
+    ];
+    public var descText:FlxText;
+
 
     //yes I did hamfist an entire options menu into one script without going into separate subscripts, what about it
     public function new() {
         super();
         FlxG.mouse.enabled = false;
         FlxG.mouse.visible = false;
-        masterSound = new FlxSprite(Options.volumeMap.get("masterVolume") * 100, 0);
-        sfxSound = new FlxSprite(Options.volumeMap.get("sfxVolume") * 100, 0);
-        musicSound = new FlxSprite(Options.volumeMap.get("musicVolume") * 100, 0);
+        masterSound = new FlxSprite(Options.getVolumeValue("masterVolume") * 100, 0);
+        sfxSound = new FlxSprite(Options.getVolumeValue("sfxVolume") * 100, 0);
+        musicSound = new FlxSprite(Options.getVolumeValue("musicVolume") * 100, 0);
 
         fillColor = GameGlobal.getColor('fill');
 		outlineColor = GameGlobal.getColor('outline');
@@ -107,7 +123,7 @@ class OptionsSubState extends flixel.FlxSubState {
         add(selectionText);
 
         for(i in 0...optionOptions.length) {
-            selectionText = new FlxText(50, 90 + (40 * i), 300, optionOptions[i]);
+            selectionText = new FlxText(50, 90 + (30 * i), 300, optionOptions[i]);
             selectionText.setFormat(Paths.font('upheaval-pro-regular'), 30, fillColor, CENTER, OUTLINE, outlineColor);
             selectionText.ID = i;
             selectionText.screenCenter(X);
@@ -243,7 +259,7 @@ class OptionsSubState extends flixel.FlxSubState {
 
         var itemValue:Int = 0;
 
-        for(i in 0...4) {
+        for(i in 0...5) {
             playPageArray = new Array<Dynamic>();
 
             switch(i) {
@@ -367,20 +383,28 @@ class OptionsSubState extends flixel.FlxSubState {
                 }
             }
             playAssets.set(i + 1, playPageArray);
+            trace('${i + 1} , $playPageArray');
         }
 
         selectionText = new FlxText(0, 0, 440, 'Return to Options: ${GameGlobal.getSelectionInputs(null, Action.B)} - Next Page: ${GameGlobal.getSelectionInputs(null, Action.A) + ' or ' + GameGlobal.getSelectionInputs(null, Action.RIGHT)} - Prev Page: ${GameGlobal.getSelectionInputs(null, Action.LEFT)}');
         selectionText.setFormat(Paths.font('upheaval-pro-regular'), 12, FlxColor.WHITE, CENTER, OUTLINE, outlineColor);
         selectionText.screenCenter(X);
         selectionText.y = 245 - selectionText.height;
-        playAssets.set(5, [selectionText]);
+        playAssets.set(6, [selectionText]);
         add(selectionText);
+
+        //creating assets for ui screen
+        createUiAssets();
 
         //and now, the final preparations
         for (asset in volumeAssets) asset.kill();
         for (asset in controlAssets) asset.kill();
         for (asset in remapArray) asset.visible = false;
         for (value in playAssets) {
+            for (asset in value) asset.kill();
+        }
+
+        for (value in uiAssets) {
             for (asset in value) asset.kill();
         }
 
@@ -403,12 +427,17 @@ class OptionsSubState extends flixel.FlxSubState {
                 }
             }
 
+        //ui description updator
+        if(inUI && uiChoice > 0) {
+            descText.text = uiOptionArray[uiChoice - 1][1];
+        };
+
         if(Controls.justPressed.ANY && !remap) {
 
-            //per control options, all go from volume to controls to how-to-play and then finally main options
+            //per control options, all go from volume to controls to how-to-play to ui and then finally main options
             if (Controls.justPressed.B) {
                 FlxG.sound.play(Paths.sound('back'), Options.inGameSoundVolume());
-                if (!inVolume && !inControls && !inPlay) {
+                if (!inVolume && !inControls && !inPlay && !inUI) {
                     tankmasfunkin.states.MenuState.options = false;
                     FlxG.mouse.enabled = true;
                     FlxG.mouse.visible = true;
@@ -419,17 +448,30 @@ class OptionsSubState extends flixel.FlxSubState {
                         inVolume = false;
                         cursor.x = 60;
                         cursor.y = mainOptionsAssets[mainOptionChoice].y + (mainOptionsAssets[mainOptionChoice].height / 2) - 15;
+                        volumeChoice = 1;
+                        Options.saveVolumeValues();
                     } else if (inControls) {
                         for(asset in controlAssets) asset.kill();
                         inControls = false;
                         cursor.alpha = 1;
                         FlxG.mouse.enabled = false;
-                    } else {
+                        controlChoice = 0;
+                        ControlsList.saveKeyBinds();
+                    } else if (inPlay) {
                         for (value in playAssets) {
                             for (asset in value) asset.kill();
                         }
                         inPlay = false;
                         cursor.alpha = 1;
+                        playPage = 1;
+                    } else {
+                        for (value in uiAssets) {
+                            for (asset in value) asset.kill();
+                        }
+                        inUI = false;
+                        cursor.alpha = 1;
+                        uiChoice = 1;
+                        Options.saveUiOptions();
                     }
                     for(asset in mainOptionsAssets) asset.alpha = 1;
                 }
@@ -443,8 +485,11 @@ class OptionsSubState extends flixel.FlxSubState {
                 else if (inControls) {
                     if(controlChoice == controlChoices.length - 1) controlChoice = 0 else controlChoice++;
                 }
+                else if (inUI) {
+                    if(uiChoice == uiOptionArray.length || uiChoice == 0) uiChoice = 1 else uiChoice++;
+                }
                 else if (!inPlay) {
-                    if(mainOptionChoice == 3) mainOptionChoice = 1;
+                    if(mainOptionChoice == optionOptions.length) mainOptionChoice = 1;
                     else mainOptionChoice++;
                 }
             }
@@ -457,8 +502,11 @@ class OptionsSubState extends flixel.FlxSubState {
                 else if (inControls) {
                     if(controlChoice == 0) controlChoice = controlChoices.length - 1 else controlChoice--;
                 }
+                else if (inUI) {
+                    if(uiChoice == 1 || uiChoice == 0) uiChoice = uiOptionArray.length else uiChoice--;
+                }
                 else if (!inPlay) {
-                    if(mainOptionChoice == 1) mainOptionChoice = 3
+                    if(mainOptionChoice == 1) mainOptionChoice = optionOptions.length
                     else mainOptionChoice--;
                 }
                   
@@ -504,6 +552,13 @@ class OptionsSubState extends flixel.FlxSubState {
             if(inVolume || volAdj) {
                 cursor.x = 50;
                 cursor.y = volumeAssets[volumeChoice].y + (volumeAssets[volumeChoice].height / 2) + 15;
+            } else if (inUI) {
+                if (uiChoice != 0) {
+                    cursor.alpha = 1;
+                    cursor.y = 55 + (20 * (uiChoice - 1)); 
+                } else {
+                    cursor.alpha = 0;
+                }
             } else {
                 cursor.x = 60;
                 cursor.y = mainOptionsAssets[mainOptionChoice].y + (mainOptionsAssets[mainOptionChoice].height / 2) - 15;
@@ -513,15 +568,15 @@ class OptionsSubState extends flixel.FlxSubState {
                     if(volAdj) {
                         switch(volumeChoice) {
                             case 1: 
-                                Options.volumeMap.set("masterVolume", Std.parseFloat(Std.string(masterSound.x / 100)));
+                                Options.setVolumeValue("masterVolume", Std.parseFloat(Std.string(masterSound.x / 100)));
                                 trace(Options.volumeMap);
                                 FlxG.sound.music.volume = Options.inGameMusicVolume();
                             case 2:
-                                Options.volumeMap.set("sfxVolume", Std.parseFloat(Std.string(sfxSound.x / 100)));
+                                Options.setVolumeValue("sfxVolume", Std.parseFloat(Std.string(sfxSound.x / 100)));
                                 trace(Options.volumeMap);
                                 FlxG.sound.play(Paths.sound('confirm'), Options.inGameSoundVolume());
                             case 3:
-                                Options.volumeMap.set("musicVolume", musicSound.x / 100);
+                                Options.setVolumeValue("musicVolume", musicSound.x / 100);
                                 trace(Options.volumeMap);
                                 FlxG.sound.music.volume = Options.inGameMusicVolume();
                         }
@@ -541,7 +596,18 @@ class OptionsSubState extends flixel.FlxSubState {
                     for(asset in playAssets[playPage]) asset.kill();
                     if (playPage == 5) playPage = 1 else playPage++;
                     for(asset in playAssets[playPage]) asset.revive();
+                } else if (inUI) {
+                    if (uiChoice != 0) {
+                        var boxToCheck = uiAssets.get(uiChoice);
+                        var check = boxToCheck[1].checked;
+                        boxToCheck[1].checked = !check;
+                        var curSetting = Options.getUiOption(uiOptionArray[uiChoice - 1][2]);
+                        uiAssets.remove(uiChoice);
+                        uiAssets.set(uiChoice, [boxToCheck[0], boxToCheck[1]]);
+                        Options.setUiOption(uiOptionArray[uiChoice - 1][2], !curSetting);
 
+                        createUiAssets();
+                    }
                 } else {
                     for(asset in mainOptionsAssets) asset.alpha = 0;
                     switch (optionOptions[mainOptionChoice - 1]) {
@@ -557,10 +623,18 @@ class OptionsSubState extends flixel.FlxSubState {
                         FlxG.mouse.enabled = true;
                     case "How To Play":
                         for (asset in playAssets[0]) asset.revive();
-                        for (asset in playAssets[5]) asset.revive();
+                        for (asset in playAssets[6]) asset.revive();
                         for (asset in playAssets[playPage]) asset.revive();
                         cursor.alpha = 0;
                         inPlay = true;
+                    case "Gameplay Config":
+                        inUI = true;
+                        for (asset in uiAssets) {
+                            for (value in asset) {
+                                value.revive();
+                            }
+                        }
+                        cursor.alpha = 0;
                     }
                 }
                 FlxG.sound.play(Paths.sound('confirm1'), Options.inGameSoundVolume());
@@ -594,5 +668,39 @@ class OptionsSubState extends flixel.FlxSubState {
                     curAlt = false;
                 }
             }
+    }
+
+    public function createUiAssets() {
+
+        //listen I had a hard time getting these stupid checkmarks to update this was my way of solving that leave me be
+        if(uiAssets != null) for (value in uiAssets) {
+            for (asset in value) asset.destroy();
+        };
+        uiAssets = new Map<Int, Array<Dynamic>>();
+        var selectionText = new FlxText(55, 30, 400, "Gameplay Config");
+        selectionText.setFormat(Paths.font('upheaval-pro-regular'), 40, fillColor, CENTER, OUTLINE, outlineColor);
+        selectionText.screenCenter(X);
+        uiAssets.set(0, [selectionText]);
+        add(selectionText);
+
+        for (i in 0...uiOptionArray.length) {
+            selectionText = new FlxText(150, 62 + (20 * i), 240, uiOptionArray[i][0]);
+            selectionText.setFormat(Paths.font('upheaval-pro-regular'), 20, fillColor, CENTER, OUTLINE, outlineColor);
+            
+            checkBox = new FlxUICheckBox(120, 62 + (20 * i), null, null, "");
+            checkBox.box.color = GameGlobal.getColor('outline');
+            checkBox.mark.color = GameGlobal.getColor('fill');
+            checkBox.mark.alpha = 1;
+            checkBox.checked = Options.getUiOption(uiOptionArray[i][2]);
+
+            uiAssets.set(i + 1, [selectionText, checkBox]);
+            add(selectionText);
+            add(checkBox);
+        }
+        descText = new FlxText(150, 205, 360, "it was me, I yassified Tom by introducing him to Charli XCX");
+        descText.setFormat(Paths.font('upheaval-pro-regular'), 17, fillColor, CENTER, OUTLINE, outlineColor);
+        descText.screenCenter(X);
+        uiAssets.set(8, [descText]);
+        add(descText);
     }
 }

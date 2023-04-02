@@ -86,19 +86,16 @@ class GameOverState extends FlxState
 		headingText.setFormat(Paths.font('upheaval-pro-regular'), 27, fill, CENTER, OUTLINE, outline);
 		headingText.screenCenter(X);
 		headingText.alpha = 0;
-		add(headingText);
 
 		statText = new FlxText(70, 80, 0, ratings[0]);
 		statText.setFormat(Paths.font('upheaval-pro-regular'), 21, fill, LEFT, OUTLINE, outline);
 		statText.alpha = 0;
-		add(statText);
 		for (i in 1...ratings.length) statText.text += '\n\n${ratings[i]}';
 		statText.text += '\n\nCombo Breaks';
 
 		statRateText = new FlxText(370, 80, 0, '${Rating.getRatingAmount(ratings[0])}');
 		statRateText.setFormat(Paths.font('upheaval-pro-regular'), 21, fill, LEFT, OUTLINE, outline);
 		statRateText.alpha = 0;
-		add(statRateText);
 		statRateText.x -= statRateText.width;
 
 		mainAnim = new FlxSprite(0, 0);
@@ -111,6 +108,10 @@ class GameOverState extends FlxState
 		gunAnim.animation.addByPrefix('run', "He Got A Glock In His Rari", 12, true);
 		gunAnim.alpha = 0;
 		add(gunAnim);
+
+		add(headingText);
+		add(statRateText);
+		add(statText);
 		
 		FlxG.sound.playMusic(Paths.music('gameOver'), Options.inGameMusicVolume(), true);
 		scoreText = new FlxText(0, 63, 100, "FINAL SCORE:");
@@ -146,6 +147,7 @@ class GameOverState extends FlxState
 		add(sympathyText);
 		
 		bestScore = new FlxText(0, 180, 0, 'BEST as ${PlayState.charInt == 0 ? 'DD' : 'BF'}: ${Highscore.getScore(PlayState.charInt)}');
+		if (Options.getUiOption('practice')) bestScore.text = "Well done!\nNow try to complete it without practice mode!";
 		bestScore.setFormat(Paths.font('upheaval-pro-regular'), 17, fill, CENTER, OUTLINE, outline);
 		bestScore.screenCenter(X);
 		bestScore.alpha = 0;
@@ -239,12 +241,12 @@ class GameOverState extends FlxState
 						timer = new FlxTimer().start(1.3 + (finalScore < 0 ? 2 : 0), function(tmr:FlxTimer) {
 							FlxG.sound.music.volume = Options.inGameMusicVolume();
 							bestScore.alpha = 1;
-							if(Highscore.getScore(PlayState.charInt) <= finalScore && finalScore > 0) {
+							if(Highscore.getScore(PlayState.charInt) <= finalScore && finalScore > 0 && !Options.getUiOption('practice')) {
 								FlxG.sound.play(Paths.sound('newbest'), Options.inGameSoundVolume());
 								newRecord.alpha = 1;
 								NGio.unlockMedal(PlayState.charInt == 0 ? APIData.ddMedal : APIData.bfMedal);
 							};
-							if(finalScore >= 0) Highscore.saveScore(PlayState.charInt, finalScore);
+							if(finalScore >= 0 && !Options.getUiOption('practice')) Highscore.saveScore(PlayState.charInt, finalScore);
 							timer = new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 								restButt.exists = true;
 								menuButt.exists = true;
