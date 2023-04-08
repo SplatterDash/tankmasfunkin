@@ -1,6 +1,8 @@
 package tankmasfunkin.game;
 
+#if html5
 import js.lib.Int16Array;
+#end
 import flixel.FlxG;
 
 class Highscore

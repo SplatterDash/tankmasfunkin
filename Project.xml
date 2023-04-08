@@ -4,7 +4,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Tankmas Funkin" file="tankmasfunkin" main="Main" version="1.0.7" company="TankmasFunkin co" />
+	<app title="Tankmas Funkin" file="tankmasfunkin" main="Main" version="1.0.8" company="TankmasFunkin co" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -16,7 +16,7 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
-	<window width="960" height="540" fps="60" background="#000000" hardware="true" vsync="false" />
+	<window width="480" height="270" fps="60" background="#000000" hardware="true" vsync="false" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />

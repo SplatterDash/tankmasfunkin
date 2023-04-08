@@ -3,6 +3,14 @@
 Ye so, despite being on the grindset mindset and finishing our work last night we're pushing more updates! We might push more depending on if/when bugs occur, but all the stuff that's been changed is listed here.
 
 ## CHANGELOG
+`v1.0.8 (April 1 and April 8)` 
+We had a couple of small but necessary things to fix:
+- **Fixed fullscreen bug.** The game should now resize to the right window no matter where you enter.
+- **Made BF juuuuuust a bit bigger.** Just a bit.
+- **Fixed offsets of BF and DD.** They moved a little too much because it was cold inside, so we poured water on their shoes and they're now stuck to the ground!
+- **Fixed text not using correct font.** I am honestly flabberghasted with how this bug happened.
+- **Scaled down Flixel UI assets.** Because we had to tamper with the size of the game/stage, we had to fix the size of the assets because they were beeg and about as much of a threat to society as the [ultimaid threat to society](https://www.newgrounds.com/portal/view/871930).
+
 `v1.0.7`
 - **Added some funnies.** You're welcome.
 - **Added pause menu music.** I left this up to the request of my team, but the pause music comes from Advent 2022, so that works out! Check it out [here](https://www.newgrounds.com/audio/listen/1181001).

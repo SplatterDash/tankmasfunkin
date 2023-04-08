@@ -488,7 +488,7 @@ class PlayState extends MusicBeatState
 		{
 			dad.dance();
 			gf.dance();
-			boyfriend.playAnim('idle');
+			boyfriend.playAnim('idle', false);
 			fireplace.animation.play('unlit', true);
 
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
@@ -883,7 +883,7 @@ class PlayState extends MusicBeatState
 
 			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != boyfriend.getMidpoint().x)
 			{
-				camFollow.setPosition(boyfriend.getMidpoint().x - 60, boyfriend.getMidpoint().y - 85);
+				camFollow.setPosition(boyfriend.getMidpoint().x - 60, boyfriend.getMidpoint().y - 105);
 			}
 		}
 
@@ -1139,8 +1139,9 @@ class PlayState extends MusicBeatState
 	}
 	var endingSong:Bool = false;
 
-	private function popUpScore(strumtime:Float):Void
+	private function popUpScore(note:Note):Void
 	{
+		var strumtime:Float = note.strumTime;
 		var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
 		curVocals.volume = 1;
 
@@ -1251,6 +1252,29 @@ class PlayState extends MusicBeatState
 		});
 
 		curSection += 1;
+
+		if(daRating == 'sweet') {
+			var noteForSplash = playerStrums.members[note.noteData];
+
+				var splash = new FlxSprite();
+				splash.cameras = [camHUD];
+
+				splash.x = noteForSplash.x + (noteForSplash.width / 2) - (splash.width / 2) - 57;
+				splash.y = noteForSplash.y + (noteForSplash.height / 2) - (splash.height / 2) - 40;
+				splash.scrollFactor.set();
+
+				splash.frames = Paths.getSparrowAtlas('ui/notesplash');
+				splash.animation.addByPrefix('green1', 'notesplash green 1', 12, false);
+				splash.animation.addByPrefix('green2', 'notesplash green 2', 12, false);
+				splash.animation.addByPrefix('red1', 'notesplash red 1', 12, false);
+				splash.animation.addByPrefix('red2', 'notesplash red 2', 12, false);
+
+				insert(members.indexOf(camFollow), splash);
+				var isEven:Bool = false;
+				if(note.noteData == 1 || note.noteData == 3) isEven = true;
+				splash.animation.play(isEven ? 'red${FlxG.random.int(1, 2)}' : 'green${FlxG.random.int(1, 2)}');
+				var timer = new FlxTimer().start(0.33, function(tmr:FlxTimer) { splash.destroy(); }, 1);
+		}
 	}
 
 	private function keyShit():Void
@@ -1371,7 +1395,7 @@ class PlayState extends MusicBeatState
 		{
 			if (curChar.animation.curAnim.name.startsWith('sing') && !curChar.animation.curAnim.name.endsWith('miss'))
 			{
-				if(charInt == 1) curChar.playAnim('idle') else curChar.dance();
+				if(charInt == 1) curChar.playAnim('idle', false) else curChar.dance();
 			}
 		}
 
@@ -1490,7 +1514,7 @@ class PlayState extends MusicBeatState
 		{
 			if (!note.isSustainNote)
 			{
-				popUpScore(note.strumTime);
+				popUpScore(note);
 				combo += 1;
 				negativeCombo = 0;
 			}
@@ -1517,29 +1541,6 @@ class PlayState extends MusicBeatState
 
 			note.wasGoodHit = true;
 			curVocals.volume = 1;
-
-			if(Math.abs(note.strumTime - Conductor.songPosition) < Conductor.safeZoneOffset * 0.15) {
-				var noteForSplash = playerStrums.members[note.noteData];
-
-				var splash = new FlxSprite();
-				splash.cameras = [camHUD];
-
-				splash.x = noteForSplash.x + (noteForSplash.width / 2) - (splash.width / 2) - 57;
-				splash.y = noteForSplash.y + (noteForSplash.height / 2) - (splash.height / 2) - 40;
-				splash.scrollFactor.set();
-
-				splash.frames = Paths.getSparrowAtlas('ui/notesplash');
-				splash.animation.addByPrefix('green1', 'notesplash green 1', 12, false);
-				splash.animation.addByPrefix('green2', 'notesplash green 2', 12, false);
-				splash.animation.addByPrefix('red1', 'notesplash red 1', 12, false);
-				splash.animation.addByPrefix('red2', 'notesplash red 2', 12, false);
-
-				insert(members.indexOf(camFollow), splash);
-				var isEven:Bool = false;
-				if(note.noteData == 1 || note.noteData == 3) isEven = true;
-				splash.animation.play(isEven ? 'red${FlxG.random.int(1, 2)}' : 'green${FlxG.random.int(1, 2)}');
-				var timer = new FlxTimer().start(0.33, function(tmr:FlxTimer) { splash.destroy(); }, 1);
-			}
 
 			//if (!note.isSustainNote)
 			//{
@@ -1599,12 +1600,12 @@ class PlayState extends MusicBeatState
 
 		if (!curChar.animation.curAnim.name.startsWith("sing"))
 		{
-			if(charInt == 1) curChar.playAnim('idle') else curChar.dance();
+			if(charInt == 1) curChar.playAnim('idle', false) else curChar.dance();
 		}
 
 		if (!oppChar.animation.curAnim.name.startsWith("sing"))
 			{
-				if(charInt == 0) oppChar.playAnim('idle') else oppChar.dance();
+				if(charInt == 0) oppChar.playAnim('idle', false) else oppChar.dance();
 			}
 	}
 }

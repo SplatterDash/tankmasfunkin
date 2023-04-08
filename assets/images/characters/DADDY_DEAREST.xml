@@ -2,10 +2,10 @@
 <TextureAtlas imagePath="DADDY_DEAREST.png">
 <SubTexture name="Dad idle dance0000" x="0" y="0" width="125" height="230" frameX="0" frameY="0" frameWidth="121" frameHeight="226" />
 <SubTexture name="Dad idle dance0001" x="125" y="0" width="125" height="232" frameX="0" frameY="2" frameWidth="121" frameHeight="228" />
-<SubTexture name="Dad idle dance0002" x="250" y="0" width="122" height="238" frameX="2" frameY="8" frameWidth="118" frameHeight="234" />
-<SubTexture name="Dad idle dance0003" x="372" y="0" width="123" height="238" frameX="1" frameY="8" frameWidth="119" frameHeight="234" />
-<SubTexture name="Dad idle dance0004" x="495" y="0" width="123" height="238" frameX="1" frameY="8" frameWidth="119" frameHeight="234" />
-<SubTexture name="Dad idle dance0005" x="495" y="0" width="123" height="238" frameX="1" frameY="8" frameWidth="119" frameHeight="234" />
+<SubTexture name="Dad idle dance0002" x="250" y="0" width="122" height="238" frameX="-2" frameY="8" frameWidth="118" frameHeight="234" />
+<SubTexture name="Dad idle dance0003" x="372" y="0" width="123" height="238" frameX="-1" frameY="8" frameWidth="119" frameHeight="234" />
+<SubTexture name="Dad idle dance0004" x="495" y="0" width="123" height="238" frameX="-1" frameY="8" frameWidth="119" frameHeight="234" />
+<SubTexture name="Dad idle dance0005" x="495" y="0" width="123" height="238" frameX="-1" frameY="8" frameWidth="119" frameHeight="234" />
 <SubTexture name="Dad Sing Note LEFT0000" x="618" y="0" width="135" height="238" frameX="1" frameY="8" frameWidth="131" frameHeight="234" />
 <SubTexture name="Dad Sing Note LEFT0001" x="0" y="238" width="131" height="238" frameX="1" frameY="8" frameWidth="127" frameHeight="234" />
 <SubTexture name="Dad Sing Note LEFT0002" x="0" y="238" width="131" height="238" frameX="1" frameY="8" frameWidth="127" frameHeight="234" />

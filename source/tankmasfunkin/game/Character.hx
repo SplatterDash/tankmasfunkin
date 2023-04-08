@@ -65,6 +65,9 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 12, false);
 				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 12, false);
 
+				scale.set(1.15, 1.15);
+				updateHitbox();
+
 				playAnim('idle');
 
 				//flipX = true;
@@ -124,7 +127,7 @@ class Character extends FlxSprite
 					danced = !danced;
 					if(danced) playAnim('danceRight') else playAnim ('danceLeft');
 				default:
-					playAnim('idle');
+					playAnim('idle', false);
 			}
 		}
 	}

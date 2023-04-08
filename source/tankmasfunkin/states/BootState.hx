@@ -23,11 +23,19 @@ class BootState extends flixel.FlxState {
         GameGlobal.initialized = false;
         GameGlobal.init();
 
+        FlxG.game.soundTray.scaleX = 1;
+        FlxG.game.soundTray.scaleY = 1;
+        FlxG.game.soundTray.x += 50;
+        FlxG.mouse.cursorContainer.scaleX = 0.5;
+        FlxG.mouse.cursorContainer.scaleY = 0.5;
+
         if(!FlxG.save.data.keyBinds) ControlsList.saveKeyBinds() else ControlsList.loadKeyBinds();
         if(!FlxG.save.data.uiOptions) Options.saveUiOptions() else Options.loadUiOptions();
         if(!FlxG.save.data.volumeSettings) Options.saveVolumeValues() else Options.loadVolumeValues();
         Options.checkForAllOptions();  // Had to place this in as without it the game fails to load thanks to a late Fullscreen option
-        if(Options.getUiOption('fullscreen')) Options.setUiOption('fullscreen', false);
+        if(Options.getUiOption('fullscreen')) { 
+            Options.setUiOption('fullscreen', false);
+        }
         var NGio = new NGio(APIData.apiKey, APIData.encrypKey);
         Global.switchState(new MenuState());
     }
